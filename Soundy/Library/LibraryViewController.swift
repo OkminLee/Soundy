@@ -25,14 +25,24 @@ class LibraryViewController: UIViewController {
 extension LibraryViewController {
     private func bindViewModel() {
         bindMediaLibraryAuthorized()
+        bindMediaItems()
     }
     
     private func bindMediaLibraryAuthorized() {
         viewModel.output.mediaLibraryAuthorized.bind { [weak self] authorized in
             guard let authorized = authorized else { return }
+            if authorized {
+                self?.viewModel.input.getMediaItems()
+            }
             if !authorized {
                 self?.showSettingsAlert()
             }
+        }
+    }
+    
+    private func bindMediaItems() {
+        viewModel.output.mediaItems.bind { [weak self] items in
+            print(items)
         }
     }
 

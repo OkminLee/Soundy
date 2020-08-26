@@ -10,11 +10,12 @@ import MediaPlayer
 
 protocol LibraryViewModelInput {
     func checkMediaLibraryAuthorization()
+    func getMediaItems()
 }
 
 protocol LibraryViewModelOutput {
     var mediaLibraryAuthorized: State<Bool?> { get set }
-    var mediaItems: [MPMediaItem] { get }
+    var mediaItems: State<[MPMediaItem]?> { get }
 }
 
 
@@ -23,11 +24,7 @@ class LibraryViewModel: LibraryViewModelOutput {
     var output: LibraryViewModelOutput { return self }
     
     var mediaLibraryAuthorized = State<Bool?>(nil)
-    
-    var mediaItems: [MPMediaItem] {
-        guard let mediaItems = MPMediaQuery.songs().items else { return [] }
-        return mediaItems
-    }
+    var mediaItems = State<[MPMediaItem]?>(nil)
 }
 
 extension LibraryViewModel: LibraryViewModelInput {
@@ -53,5 +50,10 @@ extension LibraryViewModel: LibraryViewModelInput {
             @unknown default: break
             }
         }
+    }
+    
+    func getMediaItems() {
+        guard let mediaItems = MPMediaQuery.songs().items else { return }
+        self.mediaItems.value = mediaItems
     }
 }
