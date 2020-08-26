@@ -15,12 +15,19 @@ class LibraryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.checkMediaLibraryAuthorization()
+        viewModel.input.checkMediaLibraryAuthorization()
         
         bindViewModel()
     }
-    
+}
+
+// Mark: Bind ViewModel
+extension LibraryViewController {
     private func bindViewModel() {
+        bindMediaLibraryAuthorized()
+    }
+    
+    private func bindMediaLibraryAuthorized() {
         viewModel.output.mediaLibraryAuthorized.bind { [weak self] authorized in
             guard let authorized = authorized else { return }
             if !authorized {
@@ -41,4 +48,3 @@ class LibraryViewController: UIViewController {
         present(alertController, animated: true, completion: nil)
     }
 }
-
