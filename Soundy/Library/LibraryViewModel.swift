@@ -19,7 +19,7 @@ protocol LibraryViewModelOutput {
 }
 
 
-class LibraryViewModel: LibraryViewModelOutput {
+class LibraryViewModel: NSObject, LibraryViewModelOutput {
     var input: LibraryViewModelInput { return self }
     var output: LibraryViewModelOutput { return self }
     
@@ -55,5 +55,18 @@ extension LibraryViewModel: LibraryViewModelInput {
     func getMediaItems() {
         guard let mediaItems = MPMediaQuery.songs().items else { return }
         self.mediaItems.value = mediaItems
+    }
+}
+
+extension LibraryViewModel: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCell", for: indexPath)
+        return cell
+
     }
 }

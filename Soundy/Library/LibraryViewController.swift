@@ -12,6 +12,10 @@ class LibraryViewController: UIViewController {
 
     private let viewModel = LibraryViewModel()
     
+    private var rootView: LibraryView {
+        return self.view as! LibraryView
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,6 +47,8 @@ extension LibraryViewController {
     private func bindMediaItems() {
         viewModel.output.mediaItems.bind { [weak self] items in
             print(items)
+            self?.rootView.albumCollectionView.register(UINib(nibName: "AlbumCell", bundle: nil), forCellWithReuseIdentifier: "AlbumCell")
+            self?.rootView.albumCollectionView.dataSource = self?.viewModel
         }
     }
 

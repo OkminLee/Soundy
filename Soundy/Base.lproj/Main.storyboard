@@ -6,6 +6,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17120"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,11 +14,42 @@
         <scene sceneID="ktC-Iq-Apl">
             <objects>
                 <viewController id="HP9-ed-xvB" customClass="LibraryViewController" customModule="Soundy" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ulF-cA-ght">
+                    <view key="view" contentMode="scaleToFill" id="ulF-cA-ght" customClass="LibraryView" customModule="Soundy" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kxm-UP-BzP">
+                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="G2A-qp-baz">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="T4d-Wl-96U">
+                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Wy6-rT-9Xl">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="4qk-9r-vZg"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="4qk-9r-vZg" firstAttribute="trailing" secondItem="kxm-UP-BzP" secondAttribute="trailing" id="LdD-1J-qvb"/>
+                            <constraint firstItem="4qk-9r-vZg" firstAttribute="bottom" secondItem="kxm-UP-BzP" secondAttribute="bottom" constant="44" id="dc4-0s-xAC"/>
+                            <constraint firstItem="kxm-UP-BzP" firstAttribute="top" secondItem="4qk-9r-vZg" secondAttribute="top" id="diq-AV-E0z"/>
+                            <constraint firstItem="kxm-UP-BzP" firstAttribute="leading" secondItem="4qk-9r-vZg" secondAttribute="leading" id="xM1-vz-tRU"/>
+                        </constraints>
+                        <connections>
+                            <outlet property="albumCollectionView" destination="kxm-UP-BzP" id="58B-5n-sSh"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="kud-nd-78u"/>
                 </viewController>
