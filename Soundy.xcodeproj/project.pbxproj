@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC724F6710F0076C30F /* AppDelegate.swift */; };
 		4E305ACA24F6710F0076C30F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC924F6710F0076C30F /* SceneDelegate.swift */; };
-		4E305ACC24F6710F0076C30F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305ACB24F6710F0076C30F /* ViewController.swift */; };
+		4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305ACB24F6710F0076C30F /* LibraryViewController.swift */; };
 		4E305ACF24F6710F0076C30F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E305ACD24F6710F0076C30F /* Main.storyboard */; };
 		4E305AD124F671100076C30F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E305AD024F671100076C30F /* Assets.xcassets */; };
 		4E305AD424F671100076C30F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E305AD224F671100076C30F /* LaunchScreen.storyboard */; };
 		4E305ADF24F671100076C30F /* SoundyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305ADE24F671100076C30F /* SoundyTests.swift */; };
+		4E467CD924F68C9D008706CC /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E467CD824F68C9D008706CC /* LibraryViewModel.swift */; };
+		4E467CDC24F69595008706CC /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E467CDB24F69595008706CC /* State.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,7 +32,7 @@
 		4E305AC424F6710F0076C30F /* Soundy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E305AC724F6710F0076C30F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E305AC924F6710F0076C30F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		4E305ACB24F6710F0076C30F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4E305ACB24F6710F0076C30F /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		4E305ACE24F6710F0076C30F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4E305AD024F671100076C30F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E305AD324F671100076C30F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -38,6 +40,8 @@
 		4E305ADA24F671100076C30F /* SoundyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SoundyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E305ADE24F671100076C30F /* SoundyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundyTests.swift; sourceTree = "<group>"; };
 		4E305AE024F671100076C30F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4E467CD824F68C9D008706CC /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		4E467CDB24F69595008706CC /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +83,10 @@
 		4E305AC624F6710F0076C30F /* Soundy */ = {
 			isa = PBXGroup;
 			children = (
+				4E467CDA24F6955A008706CC /* Utils */,
+				4E467CD724F68BE6008706CC /* Library */,
 				4E305AC724F6710F0076C30F /* AppDelegate.swift */,
 				4E305AC924F6710F0076C30F /* SceneDelegate.swift */,
-				4E305ACB24F6710F0076C30F /* ViewController.swift */,
 				4E305ACD24F6710F0076C30F /* Main.storyboard */,
 				4E305AD024F671100076C30F /* Assets.xcassets */,
 				4E305AD224F671100076C30F /* LaunchScreen.storyboard */,
@@ -97,6 +102,23 @@
 				4E305AE024F671100076C30F /* Info.plist */,
 			);
 			path = SoundyTests;
+			sourceTree = "<group>";
+		};
+		4E467CD724F68BE6008706CC /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				4E305ACB24F6710F0076C30F /* LibraryViewController.swift */,
+				4E467CD824F68C9D008706CC /* LibraryViewModel.swift */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		4E467CDA24F6955A008706CC /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				4E467CDB24F69595008706CC /* State.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,8 +222,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E305ACC24F6710F0076C30F /* ViewController.swift in Sources */,
+				4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */,
 				4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */,
+				4E467CD924F68C9D008706CC /* LibraryViewModel.swift in Sources */,
+				4E467CDC24F69595008706CC /* State.swift in Sources */,
 				4E305ACA24F6710F0076C30F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
