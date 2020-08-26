@@ -21,8 +21,10 @@ class SoundyTests: XCTestCase {
     func testGetMusics() throws {
         let expectation = XCTestExpectation()
         MPMediaLibrary.requestAuthorization { status in
-            let medias = MPMediaQuery.songs().items
-            print(medias?.debugDescription)
+            guard let medias = MPMediaQuery.songs().items else { return }
+            for media in medias {
+                print(media.albumArtist!.description, media.albumTitle!, media.artwork ?? "")
+            }
             expectation.fulfill()
         }
         let result = XCTWaiter.wait(for: [expectation], timeout: 3)
