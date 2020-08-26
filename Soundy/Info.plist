@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>권한</string>
+	<string>음악 파일에 접근하기 위해서 권한이 필요합니다.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
