@@ -9,5 +9,6 @@
 import UIKit
 
 class LibraryView: UIView {
-    @IBOutlet weak var albumCollectionView: UICollectionView!
+
+    @IBOutlet weak var artistTableView: UITableView!
 }
