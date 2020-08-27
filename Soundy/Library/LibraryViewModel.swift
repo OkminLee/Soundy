@@ -61,23 +61,6 @@ extension LibraryViewModel: LibraryViewModelInput {
         self.mediaItems.value = mediaItems
         
         artists = MPMediaQuery.artists().collections
-        
-//        print(artists?[0].items.map { $0.albumTitle }.uniques, artists?[0].items[0].albumTitle)
-        guard let albums = MPMediaQuery.albums().items else { return }
-        for album in albums {
-            
-            guard let artist = album.artist, let title = album.albumTitle else { continue }
-            if let dest = self.albums[artist] {
-                if !dest.contains(title) {
-                    self.albums[artist]?.append(title)
-                }
-            } else {
-                self.albums.updateValue([title], forKey: artist)
-            }
-        }
-        
-        print(self.albums)
-        print()
     }
 }
 
@@ -97,10 +80,14 @@ extension LibraryViewModel: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistTableViewCell", for: indexPath) as? ArtistTableViewCell else { return UITableViewCell() }
-        cell.albums = self.artists?[indexPath.section].items.map { $0.albumTitle }.uniques
+        let query = MPMediaQuery.albums()
+        let predic = MPMediaPropertyPredicate(value: self.artists?[indexPath.section].representativeItem?.artist, forProperty: MPMediaItemPropertyArtist)
+        query.addFilterPredicate(predic)
+        
+        cell.albums = query.collections
         cell.albumCollectionView.register(UINib(nibName: "AlbumCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AlbumCollectionViewCell")
         cell.albumCollectionView.dataSource = cell
-        cell.albumCollectionView.delegate = self
+        cell.albumCollectionView.delegate = cell
         cell.albumCollectionView.reloadData()
         return cell
     }
@@ -108,13 +95,6 @@ extension LibraryViewModel: UITableViewDataSource {
 
 extension LibraryViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120
-    }
-}
-
-
-extension LibraryViewModel: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        return 258
     }
 }

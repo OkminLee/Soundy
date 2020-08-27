@@ -10,4 +10,5 @@ import UIKit
 
 class AlbumCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var artworkImageView: UIImageView!
 }

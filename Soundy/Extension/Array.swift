@@ -20,3 +20,17 @@ extension Array where Element: Hashable {
     }
 }
 
+
+extension Dictionary {
+    var uniques: Dictionary {
+        var buffer = Dictionary()
+        var added = Set<Key>()
+        for elem in self {
+            if !added.contains(elem.key) {
+                buffer.updateValue(elem.value, forKey: elem.key)
+                added.insert(elem.key)
+            }
+        }
+        return buffer
+    }
+}

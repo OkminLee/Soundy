@@ -11,25 +11,37 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AlbumCollectionViewCell" id="yxJ-ni-Y4b" customClass="AlbumCollectionViewCell" customModule="Soundy" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+            <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="lzx-p9-2oa">
-                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                <rect key="frame" x="0.0" y="0.0" width="200" height="250"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Byj-52-3kc">
-                        <rect key="frame" x="4" y="14.5" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ss8-IB-N0X">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="Ss8-IB-N0X" secondAttribute="height" multiplier="1:1" id="EK0-qR-Whs"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Byj-52-3kc">
+                        <rect key="frame" x="10" y="208" width="180" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Byj-52-3kc" firstAttribute="centerY" secondItem="lzx-p9-2oa" secondAttribute="centerY" id="IFY-NE-c5d"/>
+                    <constraint firstItem="Ss8-IB-N0X" firstAttribute="leading" secondItem="lzx-p9-2oa" secondAttribute="leading" id="EpJ-VS-eVw"/>
+                    <constraint firstItem="Ss8-IB-N0X" firstAttribute="top" secondItem="lzx-p9-2oa" secondAttribute="top" id="UAI-cm-sjt"/>
+                    <constraint firstAttribute="trailing" secondItem="Byj-52-3kc" secondAttribute="trailing" constant="10" id="eSi-cX-an5"/>
                     <constraint firstItem="Byj-52-3kc" firstAttribute="centerX" secondItem="lzx-p9-2oa" secondAttribute="centerX" id="fUA-L5-sIu"/>
+                    <constraint firstItem="Byj-52-3kc" firstAttribute="top" secondItem="Ss8-IB-N0X" secondAttribute="bottom" constant="8" id="fuq-Co-kkg"/>
+                    <constraint firstAttribute="trailing" secondItem="Ss8-IB-N0X" secondAttribute="trailing" id="hcQ-Om-7wS"/>
+                    <constraint firstItem="Byj-52-3kc" firstAttribute="leading" secondItem="lzx-p9-2oa" secondAttribute="leading" constant="10" id="iD3-yZ-63Q"/>
                 </constraints>
             </collectionViewCellContentView>
             <connections>
+                <outlet property="artworkImageView" destination="Ss8-IB-N0X" id="o9y-eB-hcV"/>
                 <outlet property="titleLabel" destination="Byj-52-3kc" id="U76-Iq-8nP"/>
             </connections>
             <point key="canvasLocation" x="-636" y="21"/>
