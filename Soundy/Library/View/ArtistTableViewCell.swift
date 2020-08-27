@@ -23,7 +23,7 @@ extension ArtistTableViewCell: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCollectionViewCell", for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell() }
-        cell.artworkImageView.image = albums?[indexPath.row].representativeItem?.artwork?.image(at: CGSize(width: 200, height: 200))
+        cell.artworkImageView.image = albums?[indexPath.row].representativeItem?.artwork?.image(at: CGSize(width: 200, height: 200)) ?? UIImage(systemName: "music.note")
         cell.titleLabel.text = albums?[indexPath.row].representativeItem?.albumTitle
         cell.titleLabel.adjustsFontSizeToFitWidth = true
         
