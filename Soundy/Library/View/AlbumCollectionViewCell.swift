@@ -1,5 +1,5 @@
 //
-//  AlbumCell.swift
+//  AlbumCollectionViewCell.swift
 //  Soundy
 //
 //  Created by okmin lee on 2020/08/27.
@@ -8,6 +8,6 @@
 
 import UIKit
 
-class AlbumCell: UICollectionViewCell {
+class AlbumCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
 }

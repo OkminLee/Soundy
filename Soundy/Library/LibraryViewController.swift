@@ -46,11 +46,9 @@ extension LibraryViewController {
     
     private func bindMediaItems() {
         viewModel.output.mediaItems.bind { [weak self] items in
-            print(items)
             self?.rootView.artistTableView.register(UINib(nibName: "ArtistTableViewCell", bundle: nil), forCellReuseIdentifier: "ArtistTableViewCell")
             self?.rootView.artistTableView.dataSource = self?.viewModel
-//            self?.rootView.albumCollectionView.register(UINib(nibName: "AlbumCell", bundle: nil), forCellWithReuseIdentifier: "AlbumCell")
-//            self?.rootView.albumCollectionView.dataSource = self?.viewModel
+            self?.rootView.artistTableView.delegate = self?.viewModel
         }
     }
 

@@ -9,5 +9,20 @@
 import UIKit
 
 class ArtistTableViewCell: UITableViewCell {
+    var albums: [String?]?
+    
     @IBOutlet weak var albumCollectionView: UICollectionView!
+}
+
+extension ArtistTableViewCell: UICollectionViewDataSource {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return albums?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AlbumCollectionViewCell", for: indexPath) as? AlbumCollectionViewCell else { return UICollectionViewCell() }
+        cell.titleLabel.text = albums?[indexPath.row]
+        return cell
+    }
 }
