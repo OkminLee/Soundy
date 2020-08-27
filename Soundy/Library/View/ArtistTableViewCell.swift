@@ -8,6 +8,7 @@
 
 import UIKit
 import MediaPlayer
+import AVFoundation
 
 class ArtistTableViewCell: UITableViewCell {
     var albums: [MPMediaItemCollection]?
@@ -36,6 +37,20 @@ extension ArtistTableViewCell: UICollectionViewDataSource {
 extension ArtistTableViewCell: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        let url = (albums?[indexPath.row].items.first?.assetURL)!
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+            
+            let player = try AVAudioPlayer(contentsOf: url)
+            
+            player.play()
+            
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        let player = MPMusicPlayerController.systemMusicPlayer
+        player.setQueue(with: (albums?[indexPath.row])!)
+        player.play()
     }
 }
