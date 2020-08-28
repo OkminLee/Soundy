@@ -11,6 +11,7 @@ import MediaPlayer
 
 class SoundyNavigationController: UINavigationController {
 
+    var miniPlayer: MiniPlayerView?
     override func viewDidLoad() {
         super.viewDidLoad()
         MusicPlayManager.shared.delegate = self
@@ -22,19 +23,26 @@ class SoundyNavigationController: UINavigationController {
     }
     
     func createMiniPlayer() {
-        let miniPlayer = UIView(frame: CGRect(x: 0, y: self.view.frame.height-80, width: self.view.frame.width, height: 80))
-        miniPlayer.backgroundColor = .white
-        let label = UILabel(frame: CGRect(x: 0, y: self.view.frame.height-80, width: 100, height: 100))
-        label.text = "TEST"
-        label.textColor = .blue
-        miniPlayer.addSubview(label)
+        let miniPlayer = MiniPlayerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
+
+        miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(miniPlayer)
-        miniPlayer.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        
+        NSLayoutConstraint.activate([
+            miniPlayer.heightAnchor.constraint(equalToConstant: 60),
+            view.leadingAnchor.constraint(equalTo: miniPlayer.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: miniPlayer.trailingAnchor),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: miniPlayer.bottomAnchor)
+        ])
+        self.miniPlayer = miniPlayer
     }
 }
 
 extension SoundyNavigationController: MusicPlayMangerDelegate {
     func startPlay(item: MPMediaItem) {
+        guard let miniPlayer = miniPlayer else { return }
+        miniPlayer.titleLabel.text = item.title
         print(item.albumArtist, item.albumTitle, item.title)
     }
 }

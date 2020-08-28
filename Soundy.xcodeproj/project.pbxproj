@@ -25,6 +25,8 @@
 		4EEFE67424F85BDA00568C0D /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */; };
 		4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */; };
 		4EEFE67824F86B0700568C0D /* MusicPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */; };
+		4EEFE67B24F8843B00568C0D /* MiniPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EEFE67A24F8843B00568C0D /* MiniPlayerView.xib */; };
+		4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67C24F884F400568C0D /* MiniPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +62,8 @@
 		4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundyNavigationController.swift; sourceTree = "<group>"; };
 		4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayManager.swift; sourceTree = "<group>"; };
+		4EEFE67A24F8843B00568C0D /* MiniPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniPlayerView.xib; sourceTree = "<group>"; };
+		4EEFE67C24F884F400568C0D /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +109,7 @@
 				4E467CDA24F6955A008706CC /* Utils */,
 				4EEFE67224F85BB800568C0D /* Album */,
 				4E467CD724F68BE6008706CC /* Library */,
+				4EEFE67924F8841E00568C0D /* BottomMiniPlayer */,
 				4E305AC724F6710F0076C30F /* AppDelegate.swift */,
 				4E305AC924F6710F0076C30F /* SceneDelegate.swift */,
 				4E305ACD24F6710F0076C30F /* Main.storyboard */,
@@ -170,6 +175,15 @@
 				4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */,
 			);
 			path = Album;
+			sourceTree = "<group>";
+		};
+		4EEFE67924F8841E00568C0D /* BottomMiniPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				4EEFE67A24F8843B00568C0D /* MiniPlayerView.xib */,
+				4EEFE67C24F884F400568C0D /* MiniPlayerView.swift */,
+			);
+			path = BottomMiniPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -253,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EEFE67B24F8843B00568C0D /* MiniPlayerView.xib in Resources */,
 				4EC06EBC24F720060003077C /* ArtistTableViewCell.xib in Resources */,
 				4E305AD424F671100076C30F /* LaunchScreen.storyboard in Resources */,
 				4E305AD124F671100076C30F /* Assets.xcassets in Resources */,
@@ -279,6 +294,7 @@
 				4EEFE67124F7CC1000568C0D /* Array.swift in Sources */,
 				4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */,
 				4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */,
+				4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */,
 				4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */,
 				4E467CD924F68C9D008706CC /* LibraryViewModel.swift in Sources */,
 				4E467CDC24F69595008706CC /* State.swift in Sources */,
