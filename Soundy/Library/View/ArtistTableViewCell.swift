@@ -10,8 +10,12 @@ import UIKit
 import MediaPlayer
 import AVFoundation
 
+protocol ArtistTableViewCellDelegate: class {
+    func didSelected(album : MPMediaItemCollection)
+}
 class ArtistTableViewCell: UITableViewCell {
     var albums: [MPMediaItemCollection]?
+    weak var delegate: ArtistTableViewCellDelegate?
     
     @IBOutlet weak var albumCollectionView: UICollectionView!
 }
@@ -38,6 +42,7 @@ extension ArtistTableViewCell: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let album = albums?[indexPath.row] else { return }
+        delegate?.didSelected(album: album)
         MusicPlayManager.shared.play(album)
     }
 }

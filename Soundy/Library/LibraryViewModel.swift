@@ -15,9 +15,9 @@ protocol LibraryViewModelInput {
 
 protocol LibraryViewModelOutput {
     var mediaLibraryAuthorized: State<Bool?> { get set }
-    var mediaItems: State<[MPMediaItem]?> { get }
+    var mediaItems: State<[MPMediaItem]?> { get set }
+    var album: State<MPMediaItemCollection?> { get set }
 }
-
 
 class LibraryViewModel: NSObject, LibraryViewModelOutput {
     var input: LibraryViewModelInput { return self }
@@ -25,8 +25,7 @@ class LibraryViewModel: NSObject, LibraryViewModelOutput {
     
     var mediaLibraryAuthorized = State<Bool?>(nil)
     var mediaItems = State<[MPMediaItem]?>(nil)
-    
-    var albums:[String:[String]] = [:]
+    var album = State<MPMediaItemCollection?>(nil)
 
     var artists: [MPMediaItemCollection]?
 }
@@ -86,6 +85,7 @@ extension LibraryViewModel: UITableViewDataSource {
         let predic = MPMediaPropertyPredicate(value: self.artists?[indexPath.section].representativeItem?.artist, forProperty: MPMediaItemPropertyArtist)
         query.addFilterPredicate(predic)
         
+        cell.delegate = self
         cell.albums = query.collections
         cell.albumCollectionView.register(UINib(nibName: "AlbumCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AlbumCollectionViewCell")
         cell.albumCollectionView.dataSource = cell
@@ -98,5 +98,11 @@ extension LibraryViewModel: UITableViewDataSource {
 extension LibraryViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 258
+    }
+}
+
+extension LibraryViewModel: ArtistTableViewCellDelegate {
+    func didSelected(album: MPMediaItemCollection) {
+        self.album.value = album
     }
 }
