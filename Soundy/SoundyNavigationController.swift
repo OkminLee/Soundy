@@ -12,6 +12,7 @@ import MediaPlayer
 class SoundyNavigationController: UINavigationController {
 
     var miniPlayer: MiniPlayerView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         MusicPlayManager.shared.delegate = self
@@ -36,6 +37,7 @@ class SoundyNavigationController: UINavigationController {
             view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: miniPlayer.bottomAnchor)
         ])
         self.miniPlayer = miniPlayer
+        self.miniPlayer?.delegate = self
     }
 }
 
@@ -43,6 +45,16 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
     func startPlay(item: MPMediaItem) {
         guard let miniPlayer = miniPlayer else { return }
         miniPlayer.titleLabel.text = item.title
-        print(item.albumArtist, item.albumTitle, item.title)
+        miniPlayer.soundControlButtonToPause()
+    }
+}
+
+extension SoundyNavigationController: MiniPlayerViewDelegate {
+    func soundControlAction() {
+        if MusicPlayManager.shared.isPlaying {
+            MusicPlayManager.shared.stop()
+        } else {
+            MusicPlayManager.shared.play()
+        }
     }
 }

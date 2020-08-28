@@ -16,6 +16,16 @@ class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
     private let player = MPMusicPlayerController.applicationMusicPlayer
     
+    var currentMusic: MPMediaItem? {
+        player.nowPlayingItem
+    }
+    
+    var prePlayMusic: MPMediaItem?
+    
+    var isPlaying: Bool {
+        return player.playbackState == .playing
+    }
+    
     weak var delegate: MusicPlayMangerDelegate?
     
     
@@ -38,14 +48,20 @@ class MusicPlayManager: NSObject {
         player.play()
     }
     
+    func play() {
+        player.play()
+    }
+    
+    func stop() {
+        player.pause()
+    }
+    
     @objc func NowPlayingItemDidChanged() {
-        print("NowPlayingItemDidChanged")
         guard let item = player.nowPlayingItem else { return }
         delegate?.startPlay(item: item)
     }
     
     @objc func playbackStateDidChanged() {
-        print("playbackStateDidChanged")
         guard let item = player.nowPlayingItem else { return }
         delegate?.startPlay(item: item)
     }
