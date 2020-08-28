@@ -27,7 +27,7 @@ class LibraryViewModel: NSObject, LibraryViewModelOutput {
     var mediaItems = State<[MPMediaItem]?>(nil)
     
     var albums:[String:[String]] = [:]
-    
+
     var artists: [MPMediaItemCollection]?
 }
 
@@ -45,6 +45,7 @@ extension LibraryViewModel: LibraryViewModelInput {
     }
     
     private func requestMediaLibraryAuthorization() {
+        
         MPMediaLibrary.requestAuthorization { [weak self] status in
             switch status {
             case .authorized:
@@ -54,6 +55,7 @@ extension LibraryViewModel: LibraryViewModelInput {
             @unknown default: break
             }
         }
+        
     }
     
     func getMediaItems() {

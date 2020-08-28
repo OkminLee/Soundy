@@ -22,6 +22,13 @@ class LibraryViewController: UIViewController {
         viewModel.input.checkMediaLibraryAuthorization()
         
         bindViewModel()
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+//        performSegue(withIdentifier: "libraryToAlbum", sender: self)
     }
 }
 

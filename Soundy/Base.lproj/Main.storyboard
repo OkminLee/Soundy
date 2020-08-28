@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gne-yc-HnJ">
-                                <rect key="frame" x="0.0" y="88" width="414" height="714"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="s1w-zf-6n2">
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="4qk-9r-vZg" firstAttribute="trailing" secondItem="gne-yc-HnJ" secondAttribute="trailing" id="O5n-rV-aS4"/>
-                            <constraint firstItem="4qk-9r-vZg" firstAttribute="bottom" secondItem="gne-yc-HnJ" secondAttribute="bottom" constant="60" id="by3-Ua-eXN"/>
+                            <constraint firstItem="4qk-9r-vZg" firstAttribute="bottom" secondItem="gne-yc-HnJ" secondAttribute="bottom" id="by3-Ua-eXN"/>
                             <constraint firstItem="gne-yc-HnJ" firstAttribute="top" secondItem="4qk-9r-vZg" secondAttribute="top" id="rwD-W7-vdk"/>
                             <constraint firstItem="gne-yc-HnJ" firstAttribute="leading" secondItem="4qk-9r-vZg" secondAttribute="leading" id="xFH-jS-1kd"/>
                         </constraints>
@@ -45,15 +45,35 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="kud-nd-78u"/>
+                    <connections>
+                        <segue destination="raL-xt-Myt" kind="show" identifier="libraryToAlbum" id="kcH-ho-ZfI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gWL-dZ-xT8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-320" y="88"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Album View Controller-->
+        <scene sceneID="56V-CT-JUj">
+            <objects>
+                <viewController id="raL-xt-Myt" customClass="AlbumViewController" customModule="Soundy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uWq-qn-IyN">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Pdp-je-QRo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="0Va-eI-bR5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="67W-yB-DHB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="559" y="88"/>
+        </scene>
+        <!--Item-->
         <scene sceneID="9qP-Ah-k8q">
             <objects>
-                <navigationController id="6ef-W3-Bst" sceneMemberID="viewController">
+                <navigationController id="6ef-W3-Bst" customClass="SoundyNavigationController" customModule="Soundy" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="21R-Xd-FZE"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="YwG-Jz-EQK">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
