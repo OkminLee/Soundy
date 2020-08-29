@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4E06DCEE24FA177600A2446A /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCEC24FA177600A2446A /* SongTableViewCell.swift */; };
 		4E06DCEF24FA177600A2446A /* SongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E06DCED24FA177600A2446A /* SongTableViewCell.xib */; };
+		4E06DCF224FA422A00A2446A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCF124FA422A00A2446A /* PlayerViewController.swift */; };
+		4E06DCF424FA48D400A2446A /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCF324FA48D400A2446A /* PlayerViewModel.swift */; };
+		4E06DCF624FA48FD00A2446A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCF524FA48FD00A2446A /* PlayerView.swift */; };
 		4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC724F6710F0076C30F /* AppDelegate.swift */; };
 		4E305ACA24F6710F0076C30F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC924F6710F0076C30F /* SceneDelegate.swift */; };
 		4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305ACB24F6710F0076C30F /* LibraryViewController.swift */; };
@@ -48,6 +51,9 @@
 /* Begin PBXFileReference section */
 		4E06DCEC24FA177600A2446A /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
 		4E06DCED24FA177600A2446A /* SongTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableViewCell.xib; sourceTree = "<group>"; };
+		4E06DCF124FA422A00A2446A /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
+		4E06DCF324FA48D400A2446A /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		4E06DCF524FA48FD00A2446A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		4E305AC424F6710F0076C30F /* Soundy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E305AC724F6710F0076C30F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E305AC924F6710F0076C30F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +112,16 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		4E06DCF024FA420200A2446A /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				4E06DCF124FA422A00A2446A /* PlayerViewController.swift */,
+				4E06DCF324FA48D400A2446A /* PlayerViewModel.swift */,
+				4E06DCF524FA48FD00A2446A /* PlayerView.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
 		4E305ABB24F6710F0076C30F = {
 			isa = PBXGroup;
 			children = (
@@ -127,14 +143,15 @@
 		4E305AC624F6710F0076C30F /* Soundy */ = {
 			isa = PBXGroup;
 			children = (
+				4EEFE66F24F7CC0300568C0D /* Extension */,
+				4E7F129F24FA0ED8001E2CCB /* Manager */,
+				4E467CDA24F6955A008706CC /* Utils */,
 				4E7F12A024FA0F32001E2CCB /* Application */,
 				4EEFE67224F85BB800568C0D /* Album */,
+				4E06DCF024FA420200A2446A /* Player */,
 				4EEFE67924F8841E00568C0D /* BottomMiniPlayer */,
-				4EEFE66F24F7CC0300568C0D /* Extension */,
 				4E467CD724F68BE6008706CC /* Library */,
-				4E7F129F24FA0ED8001E2CCB /* Manager */,
 				4E7F129E24FA0EB4001E2CCB /* Soundy */,
-				4E467CDA24F6955A008706CC /* Utils */,
 			);
 			path = Soundy;
 			sourceTree = "<group>";
@@ -342,12 +359,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4EC06EB724F71A070003077C /* LibraryView.swift in Sources */,
+				4E06DCF424FA48D400A2446A /* PlayerViewModel.swift in Sources */,
 				4EEFE67124F7CC1000568C0D /* Array.swift in Sources */,
 				4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */,
 				4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */,
 				4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */,
 				4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */,
 				4E06DCEE24FA177600A2446A /* SongTableViewCell.swift in Sources */,
+				4E06DCF224FA422A00A2446A /* PlayerViewController.swift in Sources */,
+				4E06DCF624FA48FD00A2446A /* PlayerView.swift in Sources */,
 				4E7F129924FA0B9A001E2CCB /* UIImage.swift in Sources */,
 				4E467CD924F68C9D008706CC /* LibraryViewModel.swift in Sources */,
 				4E467CDC24F69595008706CC /* State.swift in Sources */,

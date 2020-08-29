@@ -13,15 +13,24 @@ protocol MusicPlayMangerDelegate: class {
     func startPlay(item: MPMediaItem)
     func paused()
     func resume(interval: TimeInterval)
+    func backward(item: MPMediaItem)
 }
 class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
-    private let player = MPMusicPlayerController.applicationMusicPlayer
+    private let player = MPMusicPlayerController.applicationQueuePlayer
     
-    var currentMusic: MPMediaItem?
+    var pausedMusic: MPMediaItem?
+    
+    var currentMusic: MPMediaItem? {
+        player.nowPlayingItem
+    }
     
     var currentTitle: String {
         player.nowPlayingItem?.title ?? ""
+    }
+    
+    var currentPlaybackTime: TimeInterval {
+        player.currentPlaybackTime
     }
     
     var isPlaying: Bool {
@@ -45,10 +54,17 @@ class MusicPlayManager: NSObject {
     }
     
     func play(_ collection: MPMediaItemCollection) {
+        guard collection.items.count > 0 else { return }
         player.pause()
         player.stop()
         player.setQueue(with: collection)
-        player.play()
+        player.prepareToPlay { [weak self] error in
+            if let error = error {
+                print("error ", error.localizedDescription)
+            } else {
+                self?.player.play()
+            }
+        }
     }
     
     func play() {
@@ -56,9 +72,20 @@ class MusicPlayManager: NSObject {
     }
     
     func stop() {
-        currentMusic = player.nowPlayingItem
+        pausedMusic = player.nowPlayingItem
         player.pause()
-        
+    }
+    
+    func backward() {
+        player.skipToPreviousItem()
+    }
+    
+    func forward() {
+        player.skipToNextItem()
+    }
+    
+    func seek(interval: TimeInterval) {
+        player.currentPlaybackTime = interval
     }
     
     @objc func NowPlayingItemDidChanged() {
@@ -67,14 +94,19 @@ class MusicPlayManager: NSObject {
     }
     
     @objc func playbackStateDidChanged() {
+        print("playbackStateDidChanged ", player.playbackState.rawValue)
         guard let item = player.nowPlayingItem else { return }
         switch player.playbackState {
         case .interrupted: ()
         case .paused: delegate?.paused()
         case .stopped: ()
         case .playing:
-            guard let currentMusic = currentMusic, currentMusic == item else { return }
-            delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
+            print("playing")
+            if let currentMusic = pausedMusic, currentMusic == item {
+                delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
+            } else {
+                delegate?.backward(item: item)
+            }
         case .seekingForward: ()
         case .seekingBackward: ()
         @unknown default: ()

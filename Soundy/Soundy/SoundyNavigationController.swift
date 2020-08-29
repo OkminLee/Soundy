@@ -23,9 +23,16 @@ class SoundyNavigationController: UINavigationController {
         createMiniPlayer()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let viewController = segue.destination as? PlayerViewController, let currentMusic = sender as? MPMediaItem {
+            viewController.currentMusic = currentMusic
+        }
+    }
+    
     func createMiniPlayer() {
         let miniPlayer = MiniPlayerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
 
+        
         miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(miniPlayer)
         
@@ -38,6 +45,13 @@ class SoundyNavigationController: UINavigationController {
         ])
         self.miniPlayer = miniPlayer
         self.miniPlayer?.delegate = self
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(SoundyNavigationController.miniPlayerAction(recognizer:)))
+        self.miniPlayer?.addGestureRecognizer(gesture)
+    }
+    
+    @objc func miniPlayerAction(recognizer: UITapGestureRecognizer) {
+        guard let currentMusic = MusicPlayManager.shared.currentMusic else { return }
+        performSegue(withIdentifier: "toPlayer", sender: currentMusic)
     }
 }
 
@@ -48,10 +62,6 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         miniPlayer.soundControlButtonToPause()
         miniPlayer.stopProgress()
         miniPlayer.animateProgress(interval: item.playbackDuration)
-//        let dateFormmater = DateFormatter()
-//        dateFormmater.dateFormat = "m:ss"
-//        let min = dateFormmater.string(from: Date(timeIntervalSinceReferenceDate: item.playbackDuration))
-//        print(min)
     }
     
     func paused() {
@@ -64,6 +74,8 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         miniPlayer.soundControlButtonToPause()
         miniPlayer.animateProgress(interval: interval)
     }
+    
+    func backward(item: MPMediaItem) {}
 }
 
 extension SoundyNavigationController: MiniPlayerViewDelegate {
