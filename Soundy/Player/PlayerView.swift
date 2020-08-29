@@ -16,4 +16,7 @@ class PlayerView: UIView {
     @IBOutlet weak var artistLabel: UILabel!
     @IBOutlet weak var progressSlider: UISlider!
     @IBOutlet weak var controlButton: UIButton!
+    
+    @IBOutlet weak var playedTimeLabel: UILabel!
+    @IBOutlet weak var remainTimeLabel: UILabel!
 }

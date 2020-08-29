@@ -10,10 +10,14 @@ import MediaPlayer
 
 protocol PlayerViewModelInput: AlbumViewModelInput {
     func requestSongTitle(item: MPMediaItem)
+    func requestSongTimes(currentPlaybackTime: TimeInterval, interval: TimeInterval)
 }
 
 protocol PlayerViewModelOutput: AlbumViewModelOutput {
     var songTitle: State<String?> { get }
+    var songTimer: Timer? { get }
+    var playedTime: State<String?> { get }
+    var remainTIme: State<String?> { get }
 }
 
 class PlayerViewModel: NSObject, PlayerViewModelOutput {
@@ -25,6 +29,9 @@ class PlayerViewModel: NSObject, PlayerViewModelOutput {
     var albumTitle = State<String?>(nil)
     var artist = State<String?>(nil)
     var completedRequestSongs = State<Bool?>(nil)
+    var songTimer: Timer?
+    var playedTime = State<String?>(nil)
+    var remainTIme = State<String?>(nil)
 }
 
 extension PlayerViewModel: PlayerViewModelInput {
@@ -51,4 +58,27 @@ extension PlayerViewModel: PlayerViewModelInput {
     }
     
     func requestSongs(album: MPMediaItemCollection) {}
+    
+    func requestSongTimes(currentPlaybackTime: TimeInterval, interval: TimeInterval) {
+        if let timer = songTimer {
+            timer.invalidate()
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "m:ss"
+        
+        var timeInterval = Double(interval)
+        var currentPlaybackTime = currentPlaybackTime
+        songTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+            let remain = Date(timeIntervalSince1970: timeInterval)
+            let played = Date(timeIntervalSince1970: currentPlaybackTime)
+            self?.remainTIme.value = dateFormatter.string(from: remain)
+            self?.playedTime.value = dateFormatter.string(from: played)
+            timeInterval -= 1
+            currentPlaybackTime += 1
+            if timeInterval == 0 {
+                timer.invalidate()
+            }
+        }
+        songTimer?.fire()
+    }
 }

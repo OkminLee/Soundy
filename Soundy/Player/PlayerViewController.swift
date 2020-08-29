@@ -28,9 +28,11 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        print("view did appear")
         guard let item = currentMusic else { return }
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
         animateProgress(interval: duration)
+        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
     
     private func initView() {
@@ -41,7 +43,6 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         viewModel.input.requestArtist(item: item)
         
         let progress = MusicPlayManager.shared.currentPlaybackTime / item.playbackDuration
-        
         rootView.progressSlider.setValue(Float(progress), animated: false)
     }
     
@@ -77,6 +78,14 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func progressAction(_ sender: UISlider) {
+        print("progress")
+        guard let currentMusic = currentMusic else { return }
+        stopProgress()
+        MusicPlayManager.shared.seek(interval: currentMusic.playbackDuration * Double(sender.value))
+        
+    }
+    
     @IBAction func controlAction(_ sender: UIButton) {
         if MusicPlayManager.shared.isPlaying {
             sender.setImage(UIImage().playCircleImage, for: .normal)
@@ -102,6 +111,7 @@ extension PlayerViewController {
         bindArtwork()
         bindAlbumTitle()
         bindArtist()
+        bindPlaytimes()
     }
     
     private func bindSongTitle() {
@@ -131,6 +141,16 @@ extension PlayerViewController {
             self?.rootView.artistLabel.text = artist
         }
     }
+    
+    private func bindPlaytimes() {
+        viewModel.output.playedTime.bind { (value) in
+            self.rootView.playedTimeLabel.text = value
+        }
+        
+        viewModel.output.remainTIme.bind { (value) in
+            self.rootView.remainTimeLabel.text = value
+        }
+    }
 }
 
 extension PlayerViewController: MusicPlayMangerDelegate {
@@ -138,12 +158,9 @@ extension PlayerViewController: MusicPlayMangerDelegate {
         rootView.controlButton.setImage(UIImage().pauseCircleImage, for: .normal)
         currentMusic = item
         initView()
-        self.stopProgress()
+        stopProgress()
         animateProgress(interval: item.playbackDuration)
-//        let dateFormmater = DateFormatter()
-//        dateFormmater.dateFormat = "m:ss"
-//        let min = dateFormmater.string(from: Date(timeIntervalSinceReferenceDate: item.playbackDuration))
-//        print(min)
+        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
     }
     
     func paused() {
@@ -154,5 +171,11 @@ extension PlayerViewController: MusicPlayMangerDelegate {
     func resume(interval: TimeInterval) {
         rootView.controlButton.setImage(UIImage().pauseCircleImage, for: .normal)
         animateProgress(interval: interval)
+    }
+    
+    func backward(item: MPMediaItem) {
+        stopProgress()
+        animateProgress(interval: item.playbackDuration)
+        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
     }
 }

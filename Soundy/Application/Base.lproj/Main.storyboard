@@ -20,16 +20,6 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gne-yc-HnJ">
                                 <rect key="frame" x="0.0" y="88" width="414" height="714"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="s1w-zf-6n2">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="s1w-zf-6n2" id="RFQ-Uj-kOv">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="4qk-9r-vZg"/>
@@ -252,6 +242,9 @@
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="RBe-Qf-M7r">
                                 <rect key="frame" x="18" y="580" width="378" height="31"/>
                                 <color key="minimumTrackTintColor" systemColor="systemPurpleColor"/>
+                                <connections>
+                                    <action selector="progressAction:" destination="hwX-kC-YTB" eventType="valueChanged" id="yp9-wJ-yj5"/>
+                                </connections>
                             </slider>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gzk-6U-Kfy">
                                 <rect key="frame" x="60" y="630" width="294" height="95"/>
@@ -297,16 +290,31 @@
                                     <constraint firstItem="1ED-Xj-v2E" firstAttribute="centerY" secondItem="Gzk-6U-Kfy" secondAttribute="centerY" id="xLx-tJ-8vz"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zY0-UW-Pcr">
+                                <rect key="frame" x="4.5" y="615" width="31" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhZ-hv-Sfz">
+                                <rect key="frame" x="378.5" y="615" width="31" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="o1a-DI-O1J"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="EhZ-hv-Sfz" firstAttribute="top" secondItem="RBe-Qf-M7r" secondAttribute="bottom" constant="5" id="3j8-2e-dui"/>
                             <constraint firstItem="RBe-Qf-M7r" firstAttribute="top" secondItem="RSC-h4-H6H" secondAttribute="bottom" constant="20" id="9A1-Gn-bNy"/>
                             <constraint firstItem="mTQ-D8-ake" firstAttribute="top" secondItem="BLc-1B-EA8" secondAttribute="bottom" constant="40" id="B9T-or-POz"/>
                             <constraint firstItem="Gzk-6U-Kfy" firstAttribute="leading" secondItem="o1a-DI-O1J" secondAttribute="leading" constant="60" id="FJj-Wp-Jkw"/>
                             <constraint firstItem="o1a-DI-O1J" firstAttribute="bottom" secondItem="Gzk-6U-Kfy" secondAttribute="bottom" constant="83" id="Hrb-v9-5Gv"/>
+                            <constraint firstItem="zY0-UW-Pcr" firstAttribute="centerX" secondItem="RBe-Qf-M7r" secondAttribute="leading" id="IaH-nm-gmJ"/>
                             <constraint firstItem="o1a-DI-O1J" firstAttribute="trailing" secondItem="BLc-1B-EA8" secondAttribute="trailing" constant="20" id="KZz-A8-FrF"/>
                             <constraint firstItem="RSC-h4-H6H" firstAttribute="leading" secondItem="o1a-DI-O1J" secondAttribute="leading" constant="20" id="M7k-4h-bhe"/>
+                            <constraint firstItem="EhZ-hv-Sfz" firstAttribute="centerX" secondItem="RBe-Qf-M7r" secondAttribute="trailing" id="N3q-iP-0bZ"/>
                             <constraint firstItem="o1a-DI-O1J" firstAttribute="trailing" secondItem="Gzk-6U-Kfy" secondAttribute="trailing" constant="60" id="PJy-8x-tRx"/>
                             <constraint firstItem="NrT-Si-AMv" firstAttribute="top" secondItem="o1a-DI-O1J" secondAttribute="top" id="V4y-Oq-tuj"/>
                             <constraint firstItem="NrT-Si-AMv" firstAttribute="leading" secondItem="o1a-DI-O1J" secondAttribute="leading" id="VMh-ZL-ZNT"/>
@@ -322,6 +330,7 @@
                             <constraint firstItem="BLc-1B-EA8" firstAttribute="leading" secondItem="o1a-DI-O1J" secondAttribute="leading" constant="20" id="qPb-OS-XnW"/>
                             <constraint firstItem="RBe-Qf-M7r" firstAttribute="leading" secondItem="o1a-DI-O1J" secondAttribute="leading" constant="20" id="uXP-GT-ueW"/>
                             <constraint firstItem="BLc-1B-EA8" firstAttribute="top" secondItem="o1a-DI-O1J" secondAttribute="top" constant="80" id="vOd-Yz-X93"/>
+                            <constraint firstItem="zY0-UW-Pcr" firstAttribute="top" secondItem="RBe-Qf-M7r" secondAttribute="bottom" constant="5" id="zVd-Tv-1tQ"/>
                             <constraint firstItem="o1a-DI-O1J" firstAttribute="trailing" secondItem="RSC-h4-H6H" secondAttribute="trailing" constant="20" id="zZ7-9T-Wzm"/>
                         </constraints>
                         <connections>
@@ -329,7 +338,9 @@
                             <outlet property="artistLabel" destination="RSC-h4-H6H" id="uu2-me-6cF"/>
                             <outlet property="artworkImageView" destination="BLc-1B-EA8" id="8dG-su-RO2"/>
                             <outlet property="controlButton" destination="1ED-Xj-v2E" id="cqH-v0-M5H"/>
+                            <outlet property="playedTimeLabel" destination="zY0-UW-Pcr" id="Jzp-Ad-9Lk"/>
                             <outlet property="progressSlider" destination="RBe-Qf-M7r" id="TOw-fa-4NF"/>
+                            <outlet property="remainTimeLabel" destination="EhZ-hv-Sfz" id="hLU-fi-sZ3"/>
                             <outlet property="songTitleLabel" destination="mTQ-D8-ake" id="gRm-vz-8Jh"/>
                         </connections>
                     </view>

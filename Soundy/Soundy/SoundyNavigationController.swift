@@ -62,10 +62,6 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         miniPlayer.soundControlButtonToPause()
         miniPlayer.stopProgress()
         miniPlayer.animateProgress(interval: item.playbackDuration)
-//        let dateFormmater = DateFormatter()
-//        dateFormmater.dateFormat = "m:ss"
-//        let min = dateFormmater.string(from: Date(timeIntervalSinceReferenceDate: item.playbackDuration))
-//        print(min)
     }
     
     func paused() {
@@ -78,6 +74,8 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         miniPlayer.soundControlButtonToPause()
         miniPlayer.animateProgress(interval: interval)
     }
+    
+    func backward(item: MPMediaItem) {}
 }
 
 extension SoundyNavigationController: MiniPlayerViewDelegate {

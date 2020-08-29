@@ -13,10 +13,11 @@ protocol MusicPlayMangerDelegate: class {
     func startPlay(item: MPMediaItem)
     func paused()
     func resume(interval: TimeInterval)
+    func backward(item: MPMediaItem)
 }
 class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
-    private let player = MPMusicPlayerController.applicationMusicPlayer
+    private let player = MPMusicPlayerController.applicationQueuePlayer
     
     var pausedMusic: MPMediaItem?
     
@@ -57,7 +58,13 @@ class MusicPlayManager: NSObject {
         player.pause()
         player.stop()
         player.setQueue(with: collection)
-        player.play()
+        player.prepareToPlay { [weak self] error in
+            if let error = error {
+                print("error ", error.localizedDescription)
+            } else {
+                self?.player.play()
+            }
+        }
     }
     
     func play() {
@@ -77,20 +84,29 @@ class MusicPlayManager: NSObject {
         player.skipToNextItem()
     }
     
+    func seek(interval: TimeInterval) {
+        player.currentPlaybackTime = interval
+    }
+    
     @objc func NowPlayingItemDidChanged() {
         guard let item = player.nowPlayingItem else { return }
         delegate?.startPlay(item: item)
     }
     
     @objc func playbackStateDidChanged() {
+        print("playbackStateDidChanged ", player.playbackState.rawValue)
         guard let item = player.nowPlayingItem else { return }
         switch player.playbackState {
         case .interrupted: ()
         case .paused: delegate?.paused()
         case .stopped: ()
         case .playing:
-            guard let currentMusic = pausedMusic, currentMusic == item else { return }
-            delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
+            print("playing")
+            if let currentMusic = pausedMusic, currentMusic == item {
+                delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
+            } else {
+                delegate?.backward(item: item)
+            }
         case .seekingForward: ()
         case .seekingBackward: ()
         @unknown default: ()
