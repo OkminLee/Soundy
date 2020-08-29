@@ -26,7 +26,7 @@ class LibraryViewController: SoundyViewController<LibraryView, LibraryViewModel>
     }
 }
 
-// Mark: Bind ViewModel
+// MARK: Bind ViewModel
 extension LibraryViewController {
     private func bindViewModel() {
         bindMediaLibraryAuthorized()

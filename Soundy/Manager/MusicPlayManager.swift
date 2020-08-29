@@ -13,7 +13,6 @@ protocol MusicPlayMangerDelegate: class {
     func startPlay(item: MPMediaItem)
     func paused()
     func resume(interval: TimeInterval)
-//    func playing()
 }
 class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
@@ -21,14 +20,15 @@ class MusicPlayManager: NSObject {
     
     var currentMusic: MPMediaItem?
     
-    var prePlayMusic: MPMediaItem?
+    var currentTitle: String {
+        player.nowPlayingItem?.title ?? ""
+    }
     
     var isPlaying: Bool {
-        return player.playbackState == .playing
+        player.playbackState == .playing
     }
     
     weak var delegate: MusicPlayMangerDelegate?
-    
     
     private override init() {
         super.init()
@@ -45,7 +45,9 @@ class MusicPlayManager: NSObject {
     }
     
     func play(_ collection: MPMediaItemCollection) {
-        player.setQueue(with: (collection))
+        player.pause()
+        player.stop()
+        player.setQueue(with: collection)
         player.play()
     }
     
