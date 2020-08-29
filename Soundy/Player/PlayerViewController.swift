@@ -10,14 +10,27 @@ import UIKit
 import MediaPlayer
 
 class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
-
     var currentMusic: MPMediaItem?
+    private var animator: UIViewPropertyAnimator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("viewDIdLoad")
         initView()
         bindViewModel()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        MusicPlayManager.shared.delegate = self
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guard let item = currentMusic else { return }
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        animateProgress(interval: duration)
     }
     
     private func initView() {
@@ -26,6 +39,38 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         viewModel.input.requestArtwork(item: item, size: rootView.artworkImageView.intrinsicContentSize)
         viewModel.input.requestAlbumTitle(item: item)
         viewModel.input.requestArtist(item: item)
+        
+        let progress = MusicPlayManager.shared.currentPlaybackTime / item.playbackDuration
+        
+        rootView.progressSlider.setValue(Float(progress), animated: false)
+    }
+    
+    func animateProgress(interval: TimeInterval) {
+        if animator == nil {
+            animator = UIViewPropertyAnimator(duration: interval, curve: .linear){
+                self.rootView.progressSlider.setValue(1.0, animated: true)
+            }
+            animator?.addCompletion({ (_) in
+                self.rootView.progressSlider.setValue(0.0, animated: false)
+                self.animator = nil
+            })
+            animator?.startAnimation()
+        } else {
+            animator?.continueAnimation(withTimingParameters: .none, durationFactor: 0)
+        }
+    }
+    
+    func pauseProgress() {
+        animator?.pauseAnimation()
+        let value = self.rootView.progressSlider.value
+        self.rootView.progressSlider.setValue(value, animated: false)
+    }
+    
+    func stopProgress() {
+        self.rootView.progressSlider.setValue(0.0, animated: false)
+        self.animator?.stopAnimation(false)
+        self.animator?.finishAnimation(at: .end)
+        self.animator = nil
     }
 
     @IBAction func closeAction(_ sender: Any) {
@@ -68,5 +113,26 @@ extension PlayerViewController {
             guard let artist = artist else { return }
             self?.rootView.artistLabel.text = artist
         }
+    }
+}
+
+extension PlayerViewController: MusicPlayMangerDelegate {
+    func startPlay(item: MPMediaItem) {
+        currentMusic = item
+        initView()
+        self.stopProgress()
+        animateProgress(interval: item.playbackDuration)
+//        let dateFormmater = DateFormatter()
+//        dateFormmater.dateFormat = "m:ss"
+//        let min = dateFormmater.string(from: Date(timeIntervalSinceReferenceDate: item.playbackDuration))
+//        print(min)
+    }
+    
+    func paused() {
+        pauseProgress()
+    }
+    
+    func resume(interval: TimeInterval) {
+        animateProgress(interval: interval)
     }
 }

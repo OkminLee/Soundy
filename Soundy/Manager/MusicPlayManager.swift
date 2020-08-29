@@ -28,6 +28,10 @@ class MusicPlayManager: NSObject {
         player.nowPlayingItem?.title ?? ""
     }
     
+    var currentPlaybackTime: TimeInterval {
+        player.currentPlaybackTime
+    }
+    
     var isPlaying: Bool {
         player.playbackState == .playing
     }
