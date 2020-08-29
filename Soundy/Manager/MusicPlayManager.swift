@@ -45,6 +45,7 @@ class MusicPlayManager: NSObject {
     }
     
     func play(_ collection: MPMediaItemCollection) {
+        guard collection.items.count > 0 else { return }
         player.pause()
         player.stop()
         player.setQueue(with: collection)
