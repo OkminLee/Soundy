@@ -67,7 +67,14 @@ class MusicPlayManager: NSObject {
     func stop() {
         pausedMusic = player.nowPlayingItem
         player.pause()
-        
+    }
+    
+    func backward() {
+        player.skipToPreviousItem()
+    }
+    
+    func forward() {
+        player.skipToNextItem()
     }
     
     @objc func NowPlayingItemDidChanged() {

@@ -262,6 +262,9 @@
                                         <state key="normal" image="backward.end.fill" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
                                         </state>
+                                        <connections>
+                                            <action selector="backwardAction:" destination="hwX-kC-YTB" eventType="touchUpInside" id="nP8-ml-yai"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ED-Xj-v2E">
                                         <rect key="frame" x="100" y="2" width="94" height="91"/>
@@ -279,6 +282,9 @@
                                         <state key="normal" image="forward.end.fill" catalog="system">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30"/>
                                         </state>
+                                        <connections>
+                                            <action selector="forwardAction:" destination="hwX-kC-YTB" eventType="touchUpInside" id="UMp-Wj-0lM"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
