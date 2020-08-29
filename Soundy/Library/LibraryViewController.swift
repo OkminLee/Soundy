@@ -9,13 +9,7 @@
 import UIKit
 import MediaPlayer
 
-class LibraryViewController: UIViewController {
-
-    private let viewModel = LibraryViewModel()
-    
-    private var rootView: LibraryView {
-        return self.view as! LibraryView
-    }
+class LibraryViewController: SoundyViewController<LibraryView, LibraryViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -43,6 +43,5 @@ extension ArtistTableViewCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let album = albums?[indexPath.row] else { return }
         delegate?.didSelected(album: album)
-        MusicPlayManager.shared.play(album)
     }
 }
