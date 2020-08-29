@@ -15,9 +15,11 @@ class MiniPlayerView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var soundControlButton: UIButton!
     @IBOutlet var containerView: UIView!
+    @IBOutlet weak var progressSlider: UISlider!
     
     let play = UIImage(systemName: "play.fill")
     let pause = UIImage(systemName: "pause.fill")
+    var animator: UIViewPropertyAnimator?
     
     weak var delegate: MiniPlayerViewDelegate?
     
@@ -61,6 +63,34 @@ class MiniPlayerView: UIView {
     
     func soundControlButtonToPause() {
         soundControlButton.setImage(pause, for: .normal)
+    }
+    
+    func animateProgress(interval: TimeInterval) {
+        if animator == nil {
+            animator = UIViewPropertyAnimator(duration: interval, curve: .linear){
+                self.progressSlider.setValue(1.0, animated: true)
+            }
+            animator?.addCompletion({ (_) in
+                self.progressSlider.setValue(0.0, animated: false)
+                self.animator = nil
+            })
+            animator?.startAnimation()
+        } else {
+            animator?.continueAnimation(withTimingParameters: .none, durationFactor: 0)
+        }
+    }
+    
+    func pauseProgress() {
+        animator?.pauseAnimation()
+        let value = self.progressSlider.value
+        self.progressSlider.setValue(value, animated: false)
+    }
+    
+    func stopProgress() {
+        self.progressSlider.setValue(0.0, animated: false)
+        self.animator?.stopAnimation(false)
+        self.animator?.finishAnimation(at: .end)
+        self.animator = nil
     }
     
     @IBAction func soundControlAction(_ sender: UIButton) {

@@ -16,10 +16,10 @@ class AlbumViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let album = album else { return }
-        for song in album.items {
-            print(song.title)
-        }
+//        guard let album = album else { return }
+//        for song in album.items {
+//            print(song.title)
+//        }
     }
 
 }

@@ -11,14 +11,15 @@ import MediaPlayer
 
 protocol MusicPlayMangerDelegate: class {
     func startPlay(item: MPMediaItem)
+    func paused()
+    func resume(interval: TimeInterval)
+//    func playing()
 }
 class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
     private let player = MPMusicPlayerController.applicationMusicPlayer
     
-    var currentMusic: MPMediaItem? {
-        player.nowPlayingItem
-    }
+    var currentMusic: MPMediaItem?
     
     var prePlayMusic: MPMediaItem?
     
@@ -34,12 +35,12 @@ class MusicPlayManager: NSObject {
         player.beginGeneratingPlaybackNotifications()
 //        NotificationCenter.default.addObserver(self, selector: #selector(changed), name: .MPMusicPlayerControllerVolumeDidChange, object: player.nowPlayingItem)
         NotificationCenter.default.addObserver(self, selector: #selector(NowPlayingItemDidChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
-//        NotificationCenter.default.addObserver(self, selector: #selector(playbackStateDidChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: player)
+        NotificationCenter.default.addObserver(self, selector: #selector(playbackStateDidChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: player)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
-//        NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         player.endGeneratingPlaybackNotifications()
     }
     
@@ -53,7 +54,9 @@ class MusicPlayManager: NSObject {
     }
     
     func stop() {
+        currentMusic = player.nowPlayingItem
         player.pause()
+        
     }
     
     @objc func NowPlayingItemDidChanged() {
@@ -63,6 +66,16 @@ class MusicPlayManager: NSObject {
     
     @objc func playbackStateDidChanged() {
         guard let item = player.nowPlayingItem else { return }
-        delegate?.startPlay(item: item)
+        switch player.playbackState {
+        case .interrupted: ()
+        case .paused: delegate?.paused()
+        case .stopped: ()
+        case .playing:
+            guard let currentMusic = currentMusic, currentMusic == item else { return }
+            delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
+        case .seekingForward: ()
+        case .seekingBackward: ()
+        @unknown default: ()
+        }
     }
 }

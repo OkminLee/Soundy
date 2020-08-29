@@ -46,6 +46,23 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         guard let miniPlayer = miniPlayer else { return }
         miniPlayer.titleLabel.text = item.title
         miniPlayer.soundControlButtonToPause()
+        miniPlayer.stopProgress()
+        miniPlayer.animateProgress(interval: item.playbackDuration)
+//        let dateFormmater = DateFormatter()
+//        dateFormmater.dateFormat = "m:ss"
+//        let min = dateFormmater.string(from: Date(timeIntervalSinceReferenceDate: item.playbackDuration))
+//        print(min)
+    }
+    
+    func paused() {
+        guard let miniPlayer = miniPlayer else { return }
+        miniPlayer.pauseProgress()
+    }
+    
+    func resume(interval: TimeInterval) {
+        guard let miniPlayer = miniPlayer else { return }
+        miniPlayer.soundControlButtonToPause()
+        miniPlayer.animateProgress(interval: interval)
     }
 }
 
