@@ -16,25 +16,54 @@ class AlbumViewController: SoundyViewController<AlbumView, AlbumViewModel>  {
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
+        bindViewModel()
     }
     
     private func initView() {
         guard let album = album, let representativeItem = album.representativeItem else { return }
-        
-        let artwork: UIImage
-        if let image = representativeItem.artwork?.image(at: self.rootView.artworkImageView.intrinsicContentSize) {
-            artwork = image
-        } else {
-            artwork = UIImage().defaultMusicImage
-        }
-        self.rootView.artworkImageView.image = artwork
-        self.rootView.albumTitleLabel.text = representativeItem.albumTitle
-        self.rootView.artistLabel.text = representativeItem.artist
+        viewModel.input.requestArtwork(item: representativeItem, size: rootView.artworkImageView.intrinsicContentSize)
+        viewModel.input.requestAlbumTitle(item: representativeItem)
+        viewModel.input.requestArtist(item: representativeItem)
     }
+}
+
+// MARK: Bind ViewModel
+extension AlbumViewController {
+    private func bindViewModel() {
+        bindArtwork()
+        bindAlbumTitle()
+        bindArtist()
+    }
+    
+    private func bindArtwork() {
+        viewModel.output.artwork.bind { [weak self] artwork in
+            guard let artwork = artwork else { return }
+            self?.rootView.artworkImageView.image = artwork
+        }
+    }
+    
+    private func bindAlbumTitle() {
+        viewModel.output.albumTitle.bind { [weak self] albumTitle in
+            guard let albumTitle = albumTitle else { return }
+            self?.rootView.albumTitleLabel.text = albumTitle
+        }
+    }
+    
+    private func bindArtist() {
+        viewModel.output.artist.bind { [weak self] artist in
+            guard let artist = artist else { return }
+            self?.rootView.artistLabel.text = artist
+        }
+    }
+}
+
+// MARK: Action
+extension AlbumViewController {
     @IBAction func playAction(_ sender: Any) {
         guard let album = album else { return }
         MusicPlayManager.shared.play(album)
     }
+    
     @IBAction func shufflePlayAction(_ sender: Any) {
     }
 }

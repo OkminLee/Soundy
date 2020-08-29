@@ -115,7 +115,6 @@
 			children = (
 				4E7F12A024FA0F32001E2CCB /* Application */,
 				4EEFE67224F85BB800568C0D /* Album */,
-				4E305AD024F671100076C30F /* Assets.xcassets */,
 				4EEFE67924F8841E00568C0D /* BottomMiniPlayer */,
 				4EEFE66F24F7CC0300568C0D /* Extension */,
 				4E467CD724F68BE6008706CC /* Library */,
@@ -173,6 +172,7 @@
 		4E7F12A024FA0F32001E2CCB /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				4E305AD024F671100076C30F /* Assets.xcassets */,
 				4E305AC724F6710F0076C30F /* AppDelegate.swift */,
 				4E305AD524F671100076C30F /* Info.plist */,
 				4E305AD224F671100076C30F /* LaunchScreen.storyboard */,
