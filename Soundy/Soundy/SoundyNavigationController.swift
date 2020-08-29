@@ -26,6 +26,7 @@ class SoundyNavigationController: UINavigationController {
     func createMiniPlayer() {
         let miniPlayer = MiniPlayerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
 
+        
         miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(miniPlayer)
         
@@ -38,6 +39,13 @@ class SoundyNavigationController: UINavigationController {
         ])
         self.miniPlayer = miniPlayer
         self.miniPlayer?.delegate = self
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(SoundyNavigationController.miniPlayerAction(recognizer:)))
+        self.miniPlayer?.addGestureRecognizer(gesture)
+    }
+    
+    @objc func miniPlayerAction(recognizer: UITapGestureRecognizer) {
+        let viewController = PlayerViewController()
+        present(viewController, animated: true, completion: nil)
     }
 }
 
