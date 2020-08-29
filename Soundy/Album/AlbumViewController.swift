@@ -61,8 +61,10 @@ extension AlbumViewController {
     private func bindCompletedRequestSongs() {
         viewModel.output.completedRequestSongs.bind { [weak self] completed in
             guard let completed = completed, completed else { return }
+            self?.rootView.songsTableView.register(UINib(nibName: "SongTableViewCell", bundle: nil), forCellReuseIdentifier: "SongTableViewCell")
             self?.rootView.songsTableView.dataSource = self?.viewModel
             self?.rootView.songsTableView.delegate = self?.viewModel
+            self?.rootView.songsTableView.reloadData()
         }
     }
 }

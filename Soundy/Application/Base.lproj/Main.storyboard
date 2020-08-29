@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gne-yc-HnJ">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="714"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="s1w-zf-6n2">
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="4qk-9r-vZg" firstAttribute="trailing" secondItem="gne-yc-HnJ" secondAttribute="trailing" id="O5n-rV-aS4"/>
-                            <constraint firstItem="4qk-9r-vZg" firstAttribute="bottom" secondItem="gne-yc-HnJ" secondAttribute="bottom" id="by3-Ua-eXN"/>
+                            <constraint firstItem="4qk-9r-vZg" firstAttribute="bottom" secondItem="gne-yc-HnJ" secondAttribute="bottom" constant="60" id="by3-Ua-eXN"/>
                             <constraint firstItem="gne-yc-HnJ" firstAttribute="top" secondItem="4qk-9r-vZg" secondAttribute="top" id="rwD-W7-vdk"/>
                             <constraint firstItem="gne-yc-HnJ" firstAttribute="leading" secondItem="4qk-9r-vZg" secondAttribute="leading" id="xFH-jS-1kd"/>
                         </constraints>
@@ -138,8 +138,8 @@
                                     <constraint firstAttribute="height" constant="60" id="qS6-VQ-fqi"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nEn-C8-9DI">
-                                <rect key="frame" x="0.0" y="294" width="414" height="568"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="nEn-C8-9DI">
+                                <rect key="frame" x="0.0" y="294" width="414" height="508"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -159,7 +159,7 @@
                             <constraint firstItem="Pdp-je-QRo" firstAttribute="trailing" secondItem="Hin-YS-YX6" secondAttribute="trailing" constant="20" id="Vkm-mw-pju"/>
                             <constraint firstItem="bhl-Ze-oUZ" firstAttribute="top" secondItem="Pdp-je-QRo" secondAttribute="top" constant="15" id="WpF-32-b3e"/>
                             <constraint firstItem="glC-E8-FKM" firstAttribute="leading" secondItem="bhl-Ze-oUZ" secondAttribute="trailing" constant="10" id="aaz-hO-z1U"/>
-                            <constraint firstItem="Pdp-je-QRo" firstAttribute="bottom" secondItem="nEn-C8-9DI" secondAttribute="bottom" id="g2N-oS-vX8"/>
+                            <constraint firstItem="Pdp-je-QRo" firstAttribute="bottom" secondItem="nEn-C8-9DI" secondAttribute="bottom" constant="60" id="g2N-oS-vX8"/>
                             <constraint firstItem="Pdp-je-QRo" firstAttribute="trailing" secondItem="glC-E8-FKM" secondAttribute="trailing" constant="20" id="gCA-RP-IJ1"/>
                             <constraint firstItem="nEn-C8-9DI" firstAttribute="leading" secondItem="Pdp-je-QRo" secondAttribute="leading" id="ip4-qU-ZWh"/>
                             <constraint firstItem="5x4-mF-sn4" firstAttribute="top" secondItem="bhl-Ze-oUZ" secondAttribute="bottom" constant="15" id="otm-pM-PJO"/>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E06DCEE24FA177600A2446A /* SongTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCEC24FA177600A2446A /* SongTableViewCell.swift */; };
+		4E06DCEF24FA177600A2446A /* SongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4E06DCED24FA177600A2446A /* SongTableViewCell.xib */; };
 		4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC724F6710F0076C30F /* AppDelegate.swift */; };
 		4E305ACA24F6710F0076C30F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC924F6710F0076C30F /* SceneDelegate.swift */; };
 		4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305ACB24F6710F0076C30F /* LibraryViewController.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E06DCEC24FA177600A2446A /* SongTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongTableViewCell.swift; sourceTree = "<group>"; };
+		4E06DCED24FA177600A2446A /* SongTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongTableViewCell.xib; sourceTree = "<group>"; };
 		4E305AC424F6710F0076C30F /* Soundy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E305AC724F6710F0076C30F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E305AC924F6710F0076C30F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E06DCEB24FA175100A2446A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E7F129624FA0793001E2CCB /* AlbumView.swift */,
+				4E06DCEC24FA177600A2446A /* SongTableViewCell.swift */,
+				4E06DCED24FA177600A2446A /* SongTableViewCell.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		4E305ABB24F6710F0076C30F = {
 			isa = PBXGroup;
 			children = (
@@ -206,9 +220,9 @@
 		4EEFE67224F85BB800568C0D /* Album */ = {
 			isa = PBXGroup;
 			children = (
+				4E06DCEB24FA175100A2446A /* View */,
 				4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */,
 				4E7F129A24FA0D76001E2CCB /* AlbumViewModel.swift */,
-				4E7F129624FA0793001E2CCB /* AlbumView.swift */,
 			);
 			path = Album;
 			sourceTree = "<group>";
@@ -306,6 +320,7 @@
 				4EEFE67B24F8843B00568C0D /* MiniPlayerView.xib in Resources */,
 				4EC06EBC24F720060003077C /* ArtistTableViewCell.xib in Resources */,
 				4E305AD424F671100076C30F /* LaunchScreen.storyboard in Resources */,
+				4E06DCEF24FA177600A2446A /* SongTableViewCell.xib in Resources */,
 				4E305AD124F671100076C30F /* Assets.xcassets in Resources */,
 				4E305ACF24F6710F0076C30F /* Main.storyboard in Resources */,
 				4E467CE024F718F3008706CC /* AlbumCollectionViewCell.xib in Resources */,
@@ -332,6 +347,7 @@
 				4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */,
 				4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */,
 				4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */,
+				4E06DCEE24FA177600A2446A /* SongTableViewCell.swift in Sources */,
 				4E7F129924FA0B9A001E2CCB /* UIImage.swift in Sources */,
 				4E467CD924F68C9D008706CC /* LibraryViewModel.swift in Sources */,
 				4E467CDC24F69595008706CC /* State.swift in Sources */,

@@ -62,17 +62,32 @@ extension AlbumViewModel: AlbumViewModelInput {
 }
 
 extension AlbumViewModel: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return album?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        guard
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SongTableViewCell", for: indexPath) as? SongTableViewCell,
+            let album = album
+        else { return UITableViewCell() }
+        cell.numberLabel.text = "\(indexPath.row+1)"
+        cell.songTitleLabel.text = album.items[indexPath.row].title
+        return cell
     }
 }
 
 extension AlbumViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard let album = album else { return }
+        let items = album.items
+        let array = Array(items.suffix(from: indexPath.row))
+        let collection = MPMediaItemCollection(items: array)
+        MusicPlayManager.shared.play(collection)
     }
 }
