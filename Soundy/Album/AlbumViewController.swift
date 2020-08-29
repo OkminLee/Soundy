@@ -77,5 +77,8 @@ extension AlbumViewController {
     }
     
     @IBAction func shufflePlayAction(_ sender: Any) {
+        guard let album = album else { return }
+        let collection = MPMediaItemCollection(items: album.items.shuffled())
+        MusicPlayManager.shared.play(collection)
     }
 }
