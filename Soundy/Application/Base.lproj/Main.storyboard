@@ -197,16 +197,16 @@
             </objects>
             <point key="canvasLocation" x="-1152" y="88"/>
         </scene>
-        <!--View Controller-->
+        <!--Player View Controller-->
         <scene sceneID="vI5-67-Q9A">
             <objects>
-                <viewController id="hwX-kC-YTB" sceneMemberID="viewController">
+                <viewController id="hwX-kC-YTB" customClass="PlayerViewController" customModule="Soundy" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KLZ-So-C25" customClass="PlayerView" customModule="Soundy" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="magnifyingglass.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="BLc-1B-EA8">
-                                <rect key="frame" x="20" y="80.5" width="374" height="373"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BLc-1B-EA8">
+                                <rect key="frame" x="20" y="80" width="374" height="374"/>
                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -228,7 +228,7 @@
                                 <color key="tintColor" systemColor="separatorColor"/>
                                 <state key="normal" image="chevron.down" catalog="system"/>
                                 <connections>
-                                    <action selector="closeAction:" destination="Snj-q1-C6b" eventType="touchUpInside" id="bKO-Dl-ayG"/>
+                                    <action selector="closeAction:" destination="hwX-kC-YTB" eventType="touchUpInside" id="i3v-Fa-rIh"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o4c-O0-VZM">
@@ -318,7 +318,7 @@
                         <connections>
                             <outlet property="albumTitleLabel" destination="o4c-O0-VZM" id="8q4-kQ-nap"/>
                             <outlet property="artistLabel" destination="RSC-h4-H6H" id="uu2-me-6cF"/>
-                            <outlet property="artworkImageView" destination="BLc-1B-EA8" id="mpd-Wx-vlu"/>
+                            <outlet property="artworkImageView" destination="BLc-1B-EA8" id="8dG-su-RO2"/>
                             <outlet property="controlButton" destination="1ED-Xj-v2E" id="cqH-v0-M5H"/>
                             <outlet property="progressSlider" destination="RBe-Qf-M7r" id="TOw-fa-4NF"/>
                             <outlet property="songTitleLabel" destination="mTQ-D8-ake" id="gRm-vz-8Jh"/>
@@ -326,7 +326,6 @@
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="adl-VE-EaO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Snj-q1-C6b" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-1152" y="785"/>
         </scene>
@@ -335,7 +334,6 @@
         <image name="backward.end.fill" catalog="system" width="128" height="102"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
         <image name="forward.end.fill" catalog="system" width="128" height="102"/>
-        <image name="magnifyingglass.circle.fill" catalog="system" width="128" height="121"/>
         <image name="pause.circle.fill" catalog="system" width="128" height="121"/>
         <image name="play.fill" catalog="system" width="116" height="128"/>
         <image name="shuffle" catalog="system" width="128" height="93"/>
