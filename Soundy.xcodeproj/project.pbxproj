@@ -21,8 +21,12 @@
 		4EC06EB724F71A070003077C /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC06EB624F71A070003077C /* LibraryView.swift */; };
 		4EC06EB924F71FE80003077C /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC06EB824F71FE80003077C /* ArtistTableViewCell.swift */; };
 		4EC06EBC24F720060003077C /* ArtistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EC06EBB24F720060003077C /* ArtistTableViewCell.xib */; };
-		4EC06EBE24F72F6E0003077C /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC06EBD24F72F6E0003077C /* Album.swift */; };
 		4EEFE67124F7CC1000568C0D /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67024F7CC1000568C0D /* Array.swift */; };
+		4EEFE67424F85BDA00568C0D /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */; };
+		4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */; };
+		4EEFE67824F86B0700568C0D /* MusicPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */; };
+		4EEFE67B24F8843B00568C0D /* MiniPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EEFE67A24F8843B00568C0D /* MiniPlayerView.xib */; };
+		4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67C24F884F400568C0D /* MiniPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +58,12 @@
 		4EC06EB624F71A070003077C /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		4EC06EB824F71FE80003077C /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
 		4EC06EBB24F720060003077C /* ArtistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistTableViewCell.xib; sourceTree = "<group>"; };
-		4EC06EBD24F72F6E0003077C /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
 		4EEFE67024F7CC1000568C0D /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundyNavigationController.swift; sourceTree = "<group>"; };
+		4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayManager.swift; sourceTree = "<group>"; };
+		4EEFE67A24F8843B00568C0D /* MiniPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MiniPlayerView.xib; sourceTree = "<group>"; };
+		4EEFE67C24F884F400568C0D /* MiniPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,10 +107,14 @@
 			children = (
 				4EEFE66F24F7CC0300568C0D /* Extension */,
 				4E467CDA24F6955A008706CC /* Utils */,
+				4EEFE67224F85BB800568C0D /* Album */,
 				4E467CD724F68BE6008706CC /* Library */,
+				4EEFE67924F8841E00568C0D /* BottomMiniPlayer */,
 				4E305AC724F6710F0076C30F /* AppDelegate.swift */,
 				4E305AC924F6710F0076C30F /* SceneDelegate.swift */,
 				4E305ACD24F6710F0076C30F /* Main.storyboard */,
+				4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */,
+				4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */,
 				4E305AD024F671100076C30F /* Assets.xcassets */,
 				4E305AD224F671100076C30F /* LaunchScreen.storyboard */,
 				4E305AD524F671100076C30F /* Info.plist */,
@@ -125,7 +137,6 @@
 				4EC06EBA24F71FEC0003077C /* View */,
 				4E305ACB24F6710F0076C30F /* LibraryViewController.swift */,
 				4E467CD824F68C9D008706CC /* LibraryViewModel.swift */,
-				4EC06EBD24F72F6E0003077C /* Album.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -156,6 +167,23 @@
 				4EEFE67024F7CC1000568C0D /* Array.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		4EEFE67224F85BB800568C0D /* Album */ = {
+			isa = PBXGroup;
+			children = (
+				4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */,
+			);
+			path = Album;
+			sourceTree = "<group>";
+		};
+		4EEFE67924F8841E00568C0D /* BottomMiniPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				4EEFE67A24F8843B00568C0D /* MiniPlayerView.xib */,
+				4EEFE67C24F884F400568C0D /* MiniPlayerView.swift */,
+			);
+			path = BottomMiniPlayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -239,6 +267,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EEFE67B24F8843B00568C0D /* MiniPlayerView.xib in Resources */,
 				4EC06EBC24F720060003077C /* ArtistTableViewCell.xib in Resources */,
 				4E305AD424F671100076C30F /* LaunchScreen.storyboard in Resources */,
 				4E305AD124F671100076C30F /* Assets.xcassets in Resources */,
@@ -265,9 +294,12 @@
 				4EEFE67124F7CC1000568C0D /* Array.swift in Sources */,
 				4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */,
 				4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */,
+				4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */,
+				4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */,
 				4E467CD924F68C9D008706CC /* LibraryViewModel.swift in Sources */,
 				4E467CDC24F69595008706CC /* State.swift in Sources */,
-				4EC06EBE24F72F6E0003077C /* Album.swift in Sources */,
+				4EEFE67824F86B0700568C0D /* MusicPlayManager.swift in Sources */,
+				4EEFE67424F85BDA00568C0D /* AlbumViewController.swift in Sources */,
 				4E305ACA24F6710F0076C30F /* SceneDelegate.swift in Sources */,
 				4EC06EB924F71FE80003077C /* ArtistTableViewCell.swift in Sources */,
 				4E467CDE24F718E5008706CC /* AlbumCollectionViewCell.swift in Sources */,

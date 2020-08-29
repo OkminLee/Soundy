@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class LibraryViewController: UIViewController {
 
@@ -23,6 +24,12 @@ class LibraryViewController: UIViewController {
         
         bindViewModel()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let viewController = segue.destination as? AlbumViewController, let album = sender as? MPMediaItemCollection {
+            viewController.album = album
+        }
+    }
 }
 
 // Mark: Bind ViewModel
@@ -30,6 +37,7 @@ extension LibraryViewController {
     private func bindViewModel() {
         bindMediaLibraryAuthorized()
         bindMediaItems()
+        bindAlbum()
     }
     
     private func bindMediaLibraryAuthorized() {
@@ -49,6 +57,13 @@ extension LibraryViewController {
             self?.rootView.artistTableView.register(UINib(nibName: "ArtistTableViewCell", bundle: nil), forCellReuseIdentifier: "ArtistTableViewCell")
             self?.rootView.artistTableView.dataSource = self?.viewModel
             self?.rootView.artistTableView.delegate = self?.viewModel
+        }
+    }
+    
+    private func bindAlbum() {
+        viewModel.output.album.bind { [weak self] album in
+            guard let album = album else { return }
+            self?.performSegue(withIdentifier: "libraryToAlbum", sender: album)
         }
     }
 
