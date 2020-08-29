@@ -13,12 +13,14 @@ protocol AlbumViewModelInput {
     func requestArtwork(item: MPMediaItem, size: CGSize)
     func requestAlbumTitle(item: MPMediaItem)
     func requestArtist(item: MPMediaItem)
+    func requestSongs(album: MPMediaItemCollection)
 }
 
 protocol AlbumViewModelOutput {
     var artwork: State<UIImage?> { get }
     var albumTitle: State<String?> { get }
     var artist: State<String?> { get }
+    var completedRequestSongs: State<Bool?> { get }
 }
 
 class AlbumViewModel: NSObject, AlbumViewModelOutput {
@@ -28,6 +30,9 @@ class AlbumViewModel: NSObject, AlbumViewModelOutput {
     var artwork = State<UIImage?>(nil)
     var albumTitle = State<String?>(nil)
     var artist = State<String?>(nil)
+    var completedRequestSongs = State<Bool?>(nil)
+    
+    private var album: MPMediaItemCollection?
 }
 
 extension AlbumViewModel: AlbumViewModelInput {
@@ -49,11 +54,16 @@ extension AlbumViewModel: AlbumViewModelInput {
     func requestArtist(item: MPMediaItem) {
         artist.value = item.artist
     }
+    
+    func requestSongs(album: MPMediaItemCollection) {
+        self.album = album
+        completedRequestSongs.value = true
+    }
 }
 
 extension AlbumViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return album?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

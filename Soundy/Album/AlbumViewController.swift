@@ -24,6 +24,7 @@ class AlbumViewController: SoundyViewController<AlbumView, AlbumViewModel>  {
         viewModel.input.requestArtwork(item: representativeItem, size: rootView.artworkImageView.intrinsicContentSize)
         viewModel.input.requestAlbumTitle(item: representativeItem)
         viewModel.input.requestArtist(item: representativeItem)
+        viewModel.input.requestSongs(album: album)
     }
 }
 
@@ -33,6 +34,7 @@ extension AlbumViewController {
         bindArtwork()
         bindAlbumTitle()
         bindArtist()
+        bindCompletedRequestSongs()
     }
     
     private func bindArtwork() {
@@ -53,6 +55,14 @@ extension AlbumViewController {
         viewModel.output.artist.bind { [weak self] artist in
             guard let artist = artist else { return }
             self?.rootView.artistLabel.text = artist
+        }
+    }
+    
+    private func bindCompletedRequestSongs() {
+        viewModel.output.completedRequestSongs.bind { [weak self] completed in
+            guard let completed = completed, completed else { return }
+            self?.rootView.songsTableView.dataSource = self?.viewModel
+            self?.rootView.songsTableView.delegate = self?.viewModel
         }
     }
 }
