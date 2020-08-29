@@ -15,12 +15,11 @@ class SoundyNavigationController: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        MusicPlayManager.shared.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        MusicPlayManager.shared.delegate = self
         createMiniPlayer()
     }
     

@@ -74,8 +74,17 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     }
 
     @IBAction func closeAction(_ sender: Any) {
-        print("closeAction")
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func controlAction(_ sender: UIButton) {
+        if MusicPlayManager.shared.isPlaying {
+            sender.setImage(UIImage().playCircleImage, for: .normal)
+            MusicPlayManager.shared.stop()
+        } else {
+            sender.setImage(UIImage().pauseCircleImage, for: .normal)
+            MusicPlayManager.shared.play()
+        }
     }
 }
 
@@ -118,6 +127,7 @@ extension PlayerViewController {
 
 extension PlayerViewController: MusicPlayMangerDelegate {
     func startPlay(item: MPMediaItem) {
+        rootView.controlButton.setImage(UIImage().playCircleImage, for: .normal)
         currentMusic = item
         initView()
         self.stopProgress()
@@ -129,10 +139,12 @@ extension PlayerViewController: MusicPlayMangerDelegate {
     }
     
     func paused() {
+        rootView.controlButton.setImage(UIImage().pauseCircleImage, for: .normal)
         pauseProgress()
     }
     
     func resume(interval: TimeInterval) {
+        rootView.controlButton.setImage(UIImage().playCircleImage, for: .normal)
         animateProgress(interval: interval)
     }
 }

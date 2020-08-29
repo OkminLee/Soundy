@@ -12,4 +12,12 @@ extension UIImage {
     var defaultMusicImage: UIImage {
         UIImage(systemName: "music.note")!
     }
+    
+    var playCircleImage: UIImage {
+        UIImage(systemName: "play.circle.fill")!
+    }
+    
+    var pauseCircleImage: UIImage {
+        UIImage(systemName: "pause.circle.fill")!
+    }
 }
