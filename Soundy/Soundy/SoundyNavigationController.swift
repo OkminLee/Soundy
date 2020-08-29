@@ -23,6 +23,12 @@ class SoundyNavigationController: UINavigationController {
         createMiniPlayer()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let viewController = segue.destination as? PlayerViewController, let currentMusic = sender as? MPMediaItem {
+            viewController.currentMusic = currentMusic
+        }
+    }
+    
     func createMiniPlayer() {
         let miniPlayer = MiniPlayerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
 
@@ -44,8 +50,8 @@ class SoundyNavigationController: UINavigationController {
     }
     
     @objc func miniPlayerAction(recognizer: UITapGestureRecognizer) {
-        let viewController = PlayerViewController()
-        present(viewController, animated: true, completion: nil)
+        guard let currentMusic = MusicPlayManager.shared.currentMusic else { return }
+        performSegue(withIdentifier: "toPlayer", sender: currentMusic)
     }
 }
 

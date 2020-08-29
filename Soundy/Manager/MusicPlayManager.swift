@@ -18,7 +18,11 @@ class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
     private let player = MPMusicPlayerController.applicationMusicPlayer
     
-    var currentMusic: MPMediaItem?
+    var pausedMusic: MPMediaItem?
+    
+    var currentMusic: MPMediaItem? {
+        player.nowPlayingItem
+    }
     
     var currentTitle: String {
         player.nowPlayingItem?.title ?? ""
@@ -57,7 +61,7 @@ class MusicPlayManager: NSObject {
     }
     
     func stop() {
-        currentMusic = player.nowPlayingItem
+        pausedMusic = player.nowPlayingItem
         player.pause()
         
     }
@@ -74,7 +78,7 @@ class MusicPlayManager: NSObject {
         case .paused: delegate?.paused()
         case .stopped: ()
         case .playing:
-            guard let currentMusic = currentMusic, currentMusic == item else { return }
+            guard let currentMusic = pausedMusic, currentMusic == item else { return }
             delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
         case .seekingForward: ()
         case .seekingBackward: ()
