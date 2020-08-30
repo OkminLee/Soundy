@@ -243,7 +243,8 @@
                                 <rect key="frame" x="18" y="580" width="378" height="31"/>
                                 <color key="minimumTrackTintColor" systemColor="systemPurpleColor"/>
                                 <connections>
-                                    <action selector="progressAction:" destination="hwX-kC-YTB" eventType="valueChanged" id="yp9-wJ-yj5"/>
+                                    <action selector="progressAction:" destination="hwX-kC-YTB" eventType="touchUpInside" id="tN8-eP-9fz"/>
+                                    <action selector="progressValueChanged:" destination="hwX-kC-YTB" eventType="valueChanged" id="QNa-Y6-WOa"/>
                                 </connections>
                             </slider>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gzk-6U-Kfy">

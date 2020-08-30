@@ -85,7 +85,7 @@ extension AlbumViewModel: UITableViewDataSource {
 extension AlbumViewModel: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let album = album else { return }
-        let items = album.items
+        let items = Array(album.items)
         let array = Array(items.suffix(from: indexPath.row))
         let collection = MPMediaItemCollection(items: array)
         MusicPlayManager.shared.play(collection)

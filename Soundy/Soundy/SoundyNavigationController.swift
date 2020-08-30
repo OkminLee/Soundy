@@ -26,17 +26,14 @@ class SoundyNavigationController: UINavigationController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? PlayerViewController, let currentMusic = sender as? MPMediaItem {
             viewController.currentMusic = currentMusic
+            viewController.delgate = self
         }
     }
     
     func createMiniPlayer() {
         let miniPlayer = MiniPlayerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
-
-        
         miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(miniPlayer)
-        
-        
         NSLayoutConstraint.activate([
             miniPlayer.heightAnchor.constraint(equalToConstant: 60),
             view.leadingAnchor.constraint(equalTo: miniPlayer.leadingAnchor),
@@ -60,19 +57,22 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         guard let miniPlayer = miniPlayer else { return }
         miniPlayer.titleLabel.text = item.title
         miniPlayer.soundControlButtonToPause()
-        miniPlayer.stopProgress()
-        miniPlayer.animateProgress(interval: item.playbackDuration)
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        miniPlayer.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
+//        miniPlayer.stopProgress()
+//        miniPlayer.animateProgress(interval: item.playbackDuration)
     }
     
     func paused() {
         guard let miniPlayer = miniPlayer else { return }
-        miniPlayer.pauseProgress()
+        miniPlayer.stopSongTimer()
     }
     
     func resume(interval: TimeInterval) {
         guard let miniPlayer = miniPlayer else { return }
         miniPlayer.soundControlButtonToPause()
-        miniPlayer.animateProgress(interval: interval)
+        miniPlayer.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: interval)
+//        miniPlayer.animateProgress(interval: interval)
     }
     
     func backward(item: MPMediaItem) {}
@@ -80,10 +80,22 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
 
 extension SoundyNavigationController: MiniPlayerViewDelegate {
     func soundControlAction() {
+        MusicPlayManager.shared.handlePlayState()
+    }
+}
+
+extension SoundyNavigationController: PlayerViewControllerDelegate {
+    func viewWillDisappear() {
+        MusicPlayManager.shared.delegate = self
+        guard let miniPlayer = miniPlayer, let item = MusicPlayManager.shared.currentMusic else { return }
+        miniPlayer.titleLabel.text = item.title
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+//        miniPlayer.animateProgress(interval: duration)
+        miniPlayer.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
         if MusicPlayManager.shared.isPlaying {
-            MusicPlayManager.shared.stop()
+            miniPlayer.soundControlButtonToPause()
         } else {
-            MusicPlayManager.shared.play()
+            miniPlayer.soundControlButtonToPlay()
         }
     }
 }

@@ -20,4 +20,12 @@ extension UIImage {
     var pauseCircleImage: UIImage {
         UIImage(systemName: "pause.circle.fill")!
     }
+    
+    var playImage: UIImage {
+        UIImage(systemName: "play.fill")!
+    }
+    
+    var pauseImage: UIImage {
+        UIImage(systemName: "pause.fill")!
+    }
 }

@@ -11,6 +11,8 @@ import MediaPlayer
 protocol PlayerViewModelInput: AlbumViewModelInput {
     func requestSongTitle(item: MPMediaItem)
     func requestSongTimes(currentPlaybackTime: TimeInterval, interval: TimeInterval)
+    func requestControlButtonImage(isPlaying: Bool)
+    func stopSongTimer()
 }
 
 protocol PlayerViewModelOutput: AlbumViewModelOutput {
@@ -18,6 +20,8 @@ protocol PlayerViewModelOutput: AlbumViewModelOutput {
     var songTimer: Timer? { get }
     var playedTime: State<String?> { get }
     var remainTIme: State<String?> { get }
+    var timeProgress: State<Float?> { get }
+    var controlButtonImage: State<UIImage?> { get }
 }
 
 class PlayerViewModel: NSObject, PlayerViewModelOutput {
@@ -32,6 +36,8 @@ class PlayerViewModel: NSObject, PlayerViewModelOutput {
     var songTimer: Timer?
     var playedTime = State<String?>(nil)
     var remainTIme = State<String?>(nil)
+    var timeProgress = State<Float?>(nil)
+    var controlButtonImage = State<UIImage?>(nil)
 }
 
 extension PlayerViewModel: PlayerViewModelInput {
@@ -66,19 +72,36 @@ extension PlayerViewModel: PlayerViewModelInput {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "m:ss"
         
-        var timeInterval = Double(interval)
+        var timeInterval = interval - currentPlaybackTime
         var currentPlaybackTime = currentPlaybackTime
-        songTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] timer in
+        songTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
             let remain = Date(timeIntervalSince1970: timeInterval)
             let played = Date(timeIntervalSince1970: currentPlaybackTime)
             self?.remainTIme.value = dateFormatter.string(from: remain)
             self?.playedTime.value = dateFormatter.string(from: played)
-            timeInterval -= 1
-            currentPlaybackTime += 1
-            if timeInterval == 0 {
+            timeInterval -= 0.1
+            currentPlaybackTime += 0.1
+            self?.timeProgress.value = Float(currentPlaybackTime/interval)
+            if timeInterval <= 0 {
                 timer.invalidate()
             }
         }
         songTimer?.fire()
+    }
+    
+    func stopSongTimer() {
+        if let timer = songTimer {
+            timer.invalidate()
+        }
+    }
+    
+    func requestControlButtonImage(isPlaying: Bool) {
+        let image: UIImage
+        if isPlaying {
+            image = UIImage().pauseCircleImage
+        } else {
+            image = UIImage().playCircleImage
+        }
+        controlButtonImage.value = image
     }
 }
