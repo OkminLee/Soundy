@@ -17,9 +17,10 @@ class MiniPlayerView: UIView {
     @IBOutlet var containerView: UIView!
     @IBOutlet weak var progressSlider: UISlider!
     
-    let play = UIImage(systemName: "play.fill")
-    let pause = UIImage(systemName: "pause.fill")
+    let play = UIImage().playImage
+    let pause = UIImage().pauseImage
     var animator: UIViewPropertyAnimator?
+    var songTimer: Timer?
     
     weak var delegate: MiniPlayerViewDelegate?
     
@@ -95,6 +96,32 @@ class MiniPlayerView: UIView {
         self.animator?.stopAnimation(false)
         self.animator?.finishAnimation(at: .end)
         self.animator = nil
+    }
+    
+    func requestSongTimes(currentPlaybackTime: TimeInterval, interval: TimeInterval) {
+        if let timer = songTimer {
+            timer.invalidate()
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "m:ss"
+        
+        var timeInterval = interval - currentPlaybackTime
+        var currentPlaybackTime = currentPlaybackTime
+        songTimer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] timer in
+            timeInterval -= 0.1
+            currentPlaybackTime += 0.1
+            self?.progressSlider.setValue(Float(currentPlaybackTime/interval), animated: true)
+            if timeInterval <= 0 {
+                timer.invalidate()
+            }
+        }
+        songTimer?.fire()
+    }
+    
+    func stopSongTimer() {
+        if let timer = songTimer {
+            timer.invalidate()
+        }
     }
     
     @IBAction func soundControlAction(_ sender: UIButton) {

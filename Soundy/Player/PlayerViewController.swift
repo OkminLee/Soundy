@@ -53,7 +53,7 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         
         guard MusicPlayManager.shared.isPlaying else { return }
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
 
     @IBAction func closeAction(_ sender: Any) {
@@ -61,18 +61,18 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     }
     
     @IBAction func progressValueChanged(_ sender: UISlider) {
-        viewModel.stopTimer()
+        viewModel.input.stopSongTimer()
     }
     
     @IBAction func progressAction(_ sender: UISlider) {
         guard let item = currentMusic else { return }
         MusicPlayManager.shared.seek(interval: item.playbackDuration * Double(sender.value))
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
     
     @IBAction func controlAction(_ sender: UIButton) {
-        viewModel.stopTimer()
+        viewModel.input.stopSongTimer()
         MusicPlayManager.shared.handlePlayState()
         viewModel.input.requestControlButtonImage(isPlaying: !MusicPlayManager.shared.isPlaying )
     }
@@ -160,10 +160,10 @@ extension PlayerViewController: MusicPlayMangerDelegate {
     
     func resume(interval: TimeInterval) {
         rootView.controlButton.setImage(UIImage().pauseCircleImage, for: .normal)
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: interval)
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: interval)
     }
     
     func backward(item: MPMediaItem) {
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
     }
 }

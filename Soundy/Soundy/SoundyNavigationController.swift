@@ -57,19 +57,22 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
         guard let miniPlayer = miniPlayer else { return }
         miniPlayer.titleLabel.text = item.title
         miniPlayer.soundControlButtonToPause()
-        miniPlayer.stopProgress()
-        miniPlayer.animateProgress(interval: item.playbackDuration)
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        miniPlayer.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
+//        miniPlayer.stopProgress()
+//        miniPlayer.animateProgress(interval: item.playbackDuration)
     }
     
     func paused() {
         guard let miniPlayer = miniPlayer else { return }
-        miniPlayer.pauseProgress()
+        miniPlayer.stopSongTimer()
     }
     
     func resume(interval: TimeInterval) {
         guard let miniPlayer = miniPlayer else { return }
         miniPlayer.soundControlButtonToPause()
-        miniPlayer.animateProgress(interval: interval)
+        miniPlayer.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: interval)
+//        miniPlayer.animateProgress(interval: interval)
     }
     
     func backward(item: MPMediaItem) {}
@@ -87,11 +90,12 @@ extension SoundyNavigationController: PlayerViewControllerDelegate {
         guard let miniPlayer = miniPlayer, let item = MusicPlayManager.shared.currentMusic else { return }
         miniPlayer.titleLabel.text = item.title
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
-        miniPlayer.animateProgress(interval: duration)
+//        miniPlayer.animateProgress(interval: duration)
+        miniPlayer.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
         if MusicPlayManager.shared.isPlaying {
             miniPlayer.soundControlButtonToPause()
         } else {
-            
+            miniPlayer.soundControlButtonToPlay()
         }
     }
 }

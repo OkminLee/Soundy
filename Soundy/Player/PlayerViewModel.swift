@@ -12,6 +12,7 @@ protocol PlayerViewModelInput: AlbumViewModelInput {
     func requestSongTitle(item: MPMediaItem)
     func requestSongTimes(currentPlaybackTime: TimeInterval, interval: TimeInterval)
     func requestControlButtonImage(isPlaying: Bool)
+    func stopSongTimer()
 }
 
 protocol PlayerViewModelOutput: AlbumViewModelOutput {
@@ -88,7 +89,7 @@ extension PlayerViewModel: PlayerViewModelInput {
         songTimer?.fire()
     }
     
-    func stopTimer() {
+    func stopSongTimer() {
         if let timer = songTimer {
             timer.invalidate()
         }
