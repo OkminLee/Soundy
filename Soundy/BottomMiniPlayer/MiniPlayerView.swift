@@ -65,6 +65,10 @@ class MiniPlayerView: UIView {
         soundControlButton.setImage(pause, for: .normal)
     }
     
+    func soundControlButtonToPlay() {
+        soundControlButton.setImage(play, for: .normal)
+    }
+    
     func animateProgress(interval: TimeInterval) {
         if animator == nil {
             animator = UIViewPropertyAnimator(duration: interval, curve: .linear){

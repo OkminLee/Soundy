@@ -77,11 +77,7 @@ extension SoundyNavigationController: MusicPlayMangerDelegate {
 
 extension SoundyNavigationController: MiniPlayerViewDelegate {
     func soundControlAction() {
-        if MusicPlayManager.shared.isPlaying {
-            MusicPlayManager.shared.stop()
-        } else {
-            MusicPlayManager.shared.play()
-        }
+        MusicPlayManager.shared.handlePlayState()
     }
 }
 
@@ -92,5 +88,10 @@ extension SoundyNavigationController: PlayerViewControllerDelegate {
         miniPlayer.titleLabel.text = item.title
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
         miniPlayer.animateProgress(interval: duration)
+        if MusicPlayManager.shared.isPlaying {
+            miniPlayer.soundControlButtonToPause()
+        } else {
+            
+        }
     }
 }

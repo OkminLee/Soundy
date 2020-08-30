@@ -11,6 +11,7 @@ import MediaPlayer
 protocol PlayerViewModelInput: AlbumViewModelInput {
     func requestSongTitle(item: MPMediaItem)
     func requestSongTimes(currentPlaybackTime: TimeInterval, interval: TimeInterval)
+    func requestControlButtonImage(isPlaying: Bool)
 }
 
 protocol PlayerViewModelOutput: AlbumViewModelOutput {
@@ -18,6 +19,7 @@ protocol PlayerViewModelOutput: AlbumViewModelOutput {
     var songTimer: Timer? { get }
     var playedTime: State<String?> { get }
     var remainTIme: State<String?> { get }
+    var controlButtonImage: State<UIImage?> { get }
 }
 
 class PlayerViewModel: NSObject, PlayerViewModelOutput {
@@ -32,6 +34,7 @@ class PlayerViewModel: NSObject, PlayerViewModelOutput {
     var songTimer: Timer?
     var playedTime = State<String?>(nil)
     var remainTIme = State<String?>(nil)
+    var controlButtonImage = State<UIImage?>(nil)
 }
 
 extension PlayerViewModel: PlayerViewModelInput {
@@ -80,5 +83,15 @@ extension PlayerViewModel: PlayerViewModelInput {
             }
         }
         songTimer?.fire()
+    }
+    
+    func requestControlButtonImage(isPlaying: Bool) {
+        let image: UIImage
+        if isPlaying {
+            image = UIImage().pauseCircleImage
+        } else {
+            image = UIImage().playCircleImage
+        }
+        controlButtonImage.value = image
     }
 }

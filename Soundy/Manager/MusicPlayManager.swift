@@ -43,7 +43,6 @@ class MusicPlayManager: NSObject {
     private override init() {
         super.init()
         player.beginGeneratingPlaybackNotifications()
-//        NotificationCenter.default.addObserver(self, selector: #selector(changed), name: .MPMusicPlayerControllerVolumeDidChange, object: player.nowPlayingItem)
         NotificationCenter.default.addObserver(self, selector: #selector(NowPlayingItemDidChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: player)
         NotificationCenter.default.addObserver(self, selector: #selector(playbackStateDidChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: player)
     }
@@ -72,7 +71,7 @@ class MusicPlayManager: NSObject {
         player.play()
     }
     
-    func stop() {
+    func pause() {
         pausedMusic = player.nowPlayingItem
         player.pause()
     }
@@ -87,6 +86,14 @@ class MusicPlayManager: NSObject {
     
     func seek(interval: TimeInterval) {
         player.currentPlaybackTime = interval
+    }
+    
+    func handlePlayState() {
+        if isPlaying {
+            pause()
+        } else {
+            play()
+        }
     }
     
     @objc func NowPlayingItemDidChanged() {
