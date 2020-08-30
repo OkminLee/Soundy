@@ -81,7 +81,7 @@ extension PlayerViewModel: PlayerViewModelInput {
             timeInterval -= 0.1
             currentPlaybackTime += 0.1
             self?.timeProgress.value = Float(currentPlaybackTime/interval)
-            if timeInterval == 0 {
+            if timeInterval <= 0 {
                 timer.invalidate()
             }
         }
