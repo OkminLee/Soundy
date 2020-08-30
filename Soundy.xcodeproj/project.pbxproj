@@ -12,6 +12,7 @@
 		4E06DCF224FA422A00A2446A /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCF124FA422A00A2446A /* PlayerViewController.swift */; };
 		4E06DCF424FA48D400A2446A /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCF324FA48D400A2446A /* PlayerViewModel.swift */; };
 		4E06DCF624FA48FD00A2446A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E06DCF524FA48FD00A2446A /* PlayerView.swift */; };
+		4E06DCF824FB2C9D00A2446A /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 4E06DCF724FB2C9C00A2446A /* README.md */; };
 		4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC724F6710F0076C30F /* AppDelegate.swift */; };
 		4E305ACA24F6710F0076C30F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305AC924F6710F0076C30F /* SceneDelegate.swift */; };
 		4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E305ACB24F6710F0076C30F /* LibraryViewController.swift */; };
@@ -54,6 +55,7 @@
 		4E06DCF124FA422A00A2446A /* PlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		4E06DCF324FA48D400A2446A /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		4E06DCF524FA48FD00A2446A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		4E06DCF724FB2C9C00A2446A /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		4E305AC424F6710F0076C30F /* Soundy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Soundy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E305AC724F6710F0076C30F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E305AC924F6710F0076C30F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 		4E305AC624F6710F0076C30F /* Soundy */ = {
 			isa = PBXGroup;
 			children = (
+				4E06DCF724FB2C9C00A2446A /* README.md */,
 				4EEFE66F24F7CC0300568C0D /* Extension */,
 				4E7F129F24FA0ED8001E2CCB /* Manager */,
 				4E467CDA24F6955A008706CC /* Utils */,
@@ -340,6 +343,7 @@
 				4E06DCEF24FA177600A2446A /* SongTableViewCell.xib in Resources */,
 				4E305AD124F671100076C30F /* Assets.xcassets in Resources */,
 				4E305ACF24F6710F0076C30F /* Main.storyboard in Resources */,
+				4E06DCF824FB2C9D00A2446A /* README.md in Resources */,
 				4E467CE024F718F3008706CC /* AlbumCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

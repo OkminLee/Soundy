@@ -13,6 +13,7 @@ import AVFoundation
 protocol ArtistTableViewCellDelegate: class {
     func didSelected(album : MPMediaItemCollection)
 }
+
 class ArtistTableViewCell: UITableViewCell {
     var albums: [MPMediaItemCollection]?
     weak var delegate: ArtistTableViewCellDelegate?
@@ -21,7 +22,6 @@ class ArtistTableViewCell: UITableViewCell {
 }
 
 extension ArtistTableViewCell: UICollectionViewDataSource {
-
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return albums?.count ?? 0
     }
