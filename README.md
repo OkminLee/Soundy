@@ -1,7 +1,22 @@
 # Soundy
 
+## 개발환경
+- MacOS 11.0 BigSur Beta
+- Xcode12 Beta 4
+- iOS14 Beta 6
+
+## 출시노트
+1.1.0
+- 백그라운드에서 돌아올 때 플레이 시간 progress가 초기화 되는 오류 수정
+- Player에서 탐색 기능 오류 수정
+- MiniPlayer와 Player의 싱크 오류 수정
+- 곡을 여러번 선택할 때 비정상 종료 오류 수정
+  
+1.0.0
+- Soundy 구현 완성
+
 ## Overview
-Soundy의 전반적인 설계 다이어그램 입니다.
+Soundy의 전반적인 설계 다이어그램 입니다. 1.0.0 버전을 기준으로 작성되어 있습니다.
 ![Overview](readme/SoundyOverview.png)
 
 
