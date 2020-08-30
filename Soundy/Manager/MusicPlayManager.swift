@@ -15,6 +15,7 @@ protocol MusicPlayMangerDelegate: class {
     func resume(interval: TimeInterval)
     func backward(item: MPMediaItem)
 }
+
 class MusicPlayManager: NSObject {
     static let shared = MusicPlayManager()
     private let player = MPMusicPlayerController.applicationQueuePlayer

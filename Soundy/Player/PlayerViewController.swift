@@ -23,16 +23,16 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         MusicPlayManager.shared.delegate = self
+        guard let item = currentMusic else { return }
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
-    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("view did appear")
         guard let item = currentMusic else { return }
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
         animateProgress(interval: duration)
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
     
     private func initView() {
@@ -79,7 +79,6 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     }
     
     @IBAction func progressAction(_ sender: UISlider) {
-        print("progress")
         guard let currentMusic = currentMusic else { return }
         stopProgress()
         MusicPlayManager.shared.seek(interval: currentMusic.playbackDuration * Double(sender.value))
