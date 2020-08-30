@@ -9,15 +9,20 @@
 import UIKit
 import MediaPlayer
 
+protocol PlayerViewControllerDelegate: class {
+    func viewWillDisappear()
+}
+
 class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     var currentMusic: MPMediaItem?
     private var animator: UIViewPropertyAnimator?
+    
+    weak var delgate: PlayerViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initView()
         bindViewModel()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,14 +30,13 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         MusicPlayManager.shared.delegate = self
     }
     
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("view did appear")
-        guard let item = currentMusic else { return }
-        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
-        animateProgress(interval: duration)
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delgate?.viewWillDisappear()
     }
     
     private func initView() {
@@ -44,56 +48,33 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         
         let progress = MusicPlayManager.shared.currentPlaybackTime / item.playbackDuration
         rootView.progressSlider.setValue(Float(progress), animated: false)
-    }
-    
-    func animateProgress(interval: TimeInterval) {
-        if animator == nil {
-            animator = UIViewPropertyAnimator(duration: interval, curve: .linear){
-                self.rootView.progressSlider.setValue(1.0, animated: true)
-            }
-            animator?.addCompletion({ (_) in
-                self.rootView.progressSlider.setValue(0.0, animated: false)
-                self.animator = nil
-            })
-            animator?.startAnimation()
-        } else {
-            animator?.continueAnimation(withTimingParameters: .none, durationFactor: 0)
-        }
-    }
-    
-    func pauseProgress() {
-        animator?.pauseAnimation()
-        let value = self.rootView.progressSlider.value
-        self.rootView.progressSlider.setValue(value, animated: false)
-    }
-    
-    func stopProgress() {
-        self.rootView.progressSlider.setValue(0.0, animated: false)
-        self.animator?.stopAnimation(false)
-        self.animator?.finishAnimation(at: .end)
-        self.animator = nil
+        
+        viewModel.input.requestControlButtonImage(isPlaying: MusicPlayManager.shared.isPlaying)
+        
+        guard MusicPlayManager.shared.isPlaying else { return }
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
 
     @IBAction func closeAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func progressValueChanged(_ sender: UISlider) {
+        viewModel.input.stopSongTimer()
+    }
+    
     @IBAction func progressAction(_ sender: UISlider) {
-        print("progress")
-        guard let currentMusic = currentMusic else { return }
-        stopProgress()
-        MusicPlayManager.shared.seek(interval: currentMusic.playbackDuration * Double(sender.value))
-        
+        guard let item = currentMusic else { return }
+        MusicPlayManager.shared.seek(interval: item.playbackDuration * Double(sender.value))
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: duration)
     }
     
     @IBAction func controlAction(_ sender: UIButton) {
-        if MusicPlayManager.shared.isPlaying {
-            sender.setImage(UIImage().playCircleImage, for: .normal)
-            MusicPlayManager.shared.stop()
-        } else {
-            sender.setImage(UIImage().pauseCircleImage, for: .normal)
-            MusicPlayManager.shared.play()
-        }
+        viewModel.input.stopSongTimer()
+        MusicPlayManager.shared.handlePlayState()
+        viewModel.input.requestControlButtonImage(isPlaying: !MusicPlayManager.shared.isPlaying )
     }
     
     @IBAction func backwardAction(_ sender: Any) {
@@ -112,6 +93,7 @@ extension PlayerViewController {
         bindAlbumTitle()
         bindArtist()
         bindPlaytimes()
+        bindControlButtonImage()
     }
     
     private func bindSongTitle() {
@@ -143,12 +125,24 @@ extension PlayerViewController {
     }
     
     private func bindPlaytimes() {
-        viewModel.output.playedTime.bind { (value) in
-            self.rootView.playedTimeLabel.text = value
+        viewModel.output.playedTime.bind { [weak self] value in
+            self?.rootView.playedTimeLabel.text = value
         }
         
-        viewModel.output.remainTIme.bind { (value) in
-            self.rootView.remainTimeLabel.text = value
+        viewModel.output.remainTIme.bind { [weak self] value in
+            self?.rootView.remainTimeLabel.text = value
+        }
+        
+        viewModel.output.timeProgress.bind { [weak self] value in
+            guard let value = value else { return }
+            self?.rootView.progressSlider.setValue(value, animated: true)
+        }
+    }
+    
+    private func bindControlButtonImage() {
+        viewModel.output.controlButtonImage.bind { [weak self] image in
+            guard let image = image else { return }
+            self?.rootView.controlButton.setImage(image, for: .normal)
         }
     }
 }
@@ -158,24 +152,18 @@ extension PlayerViewController: MusicPlayMangerDelegate {
         rootView.controlButton.setImage(UIImage().pauseCircleImage, for: .normal)
         currentMusic = item
         initView()
-        stopProgress()
-        animateProgress(interval: item.playbackDuration)
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
     }
     
     func paused() {
         rootView.controlButton.setImage(UIImage().playCircleImage, for: .normal)
-        pauseProgress()
     }
     
     func resume(interval: TimeInterval) {
         rootView.controlButton.setImage(UIImage().pauseCircleImage, for: .normal)
-        animateProgress(interval: interval)
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: interval)
     }
     
     func backward(item: MPMediaItem) {
-        stopProgress()
-        animateProgress(interval: item.playbackDuration)
-        viewModel.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
+        viewModel.input.requestSongTimes(currentPlaybackTime: MusicPlayManager.shared.currentPlaybackTime, interval: item.playbackDuration)
     }
 }

@@ -10,13 +10,13 @@ import MediaPlayer
 
 protocol LibraryViewModelInput {
     func checkMediaLibraryAuthorization()
-    func getMediaItems()
+    func requestSongs()
 }
 
 protocol LibraryViewModelOutput {
-    var mediaLibraryAuthorized: State<Bool?> { get set }
-    var mediaItems: State<[MPMediaItem]?> { get set }
-    var album: State<MPMediaItemCollection?> { get set }
+    var mediaLibraryAuthorized: State<Bool?> { get }
+    var album: State<MPMediaItemCollection?> { get }
+    var completedRequestSongs: State<Bool?> { get }
 }
 
 class LibraryViewModel: NSObject, LibraryViewModelOutput {
@@ -24,10 +24,10 @@ class LibraryViewModel: NSObject, LibraryViewModelOutput {
     var output: LibraryViewModelOutput { return self }
     
     var mediaLibraryAuthorized = State<Bool?>(nil)
-    var mediaItems = State<[MPMediaItem]?>(nil)
     var album = State<MPMediaItemCollection?>(nil)
+    var completedRequestSongs = State<Bool?>(nil)
 
-    var artists: [MPMediaItemCollection]?
+    private var songs: [MPMediaItemCollection]?
 }
 
 extension LibraryViewModel: LibraryViewModelInput {
@@ -57,11 +57,10 @@ extension LibraryViewModel: LibraryViewModelInput {
         
     }
     
-    func getMediaItems() {
-        guard let mediaItems = MPMediaQuery.songs().items else { return }
-        self.mediaItems.value = mediaItems
-        
-        artists = MPMediaQuery.artists().collections
+    func requestSongs() {
+        guard let mediaItems = MPMediaQuery.artists().collections else { return }
+        songs = mediaItems
+        completedRequestSongs.value = true
     }
 }
 
@@ -71,18 +70,18 @@ extension LibraryViewModel: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return self.artists?.count ?? 0
+        return self.songs?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let artist = self.artists?[section].representativeItem?.artist else { return "unknown" }
+        guard let artist = self.songs?[section].representativeItem?.artist else { return "unknown" }
         return artist
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistTableViewCell", for: indexPath) as? ArtistTableViewCell else { return UITableViewCell() }
         let query = MPMediaQuery.albums()
-        let predic = MPMediaPropertyPredicate(value: self.artists?[indexPath.section].representativeItem?.artist, forProperty: MPMediaItemPropertyArtist)
+        let predic = MPMediaPropertyPredicate(value: self.songs?[indexPath.section].representativeItem?.artist, forProperty: MPMediaItemPropertyArtist)
         query.addFilterPredicate(predic)
         
         cell.delegate = self
