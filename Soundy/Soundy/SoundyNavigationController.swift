@@ -26,17 +26,14 @@ class SoundyNavigationController: UINavigationController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let viewController = segue.destination as? PlayerViewController, let currentMusic = sender as? MPMediaItem {
             viewController.currentMusic = currentMusic
+            viewController.delgate = self
         }
     }
     
     func createMiniPlayer() {
         let miniPlayer = MiniPlayerView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 60))
-
-        
         miniPlayer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(miniPlayer)
-        
-        
         NSLayoutConstraint.activate([
             miniPlayer.heightAnchor.constraint(equalToConstant: 60),
             view.leadingAnchor.constraint(equalTo: miniPlayer.leadingAnchor),
@@ -85,5 +82,15 @@ extension SoundyNavigationController: MiniPlayerViewDelegate {
         } else {
             MusicPlayManager.shared.play()
         }
+    }
+}
+
+extension SoundyNavigationController: PlayerViewControllerDelegate {
+    func viewWillDisappear() {
+        MusicPlayManager.shared.delegate = self
+        guard let miniPlayer = miniPlayer, let item = MusicPlayManager.shared.currentMusic else { return }
+        miniPlayer.titleLabel.text = item.title
+        let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
+        miniPlayer.animateProgress(interval: duration)
     }
 }

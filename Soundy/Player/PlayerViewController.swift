@@ -9,9 +9,15 @@
 import UIKit
 import MediaPlayer
 
+protocol PlayerViewControllerDelegate: class {
+    func viewWillDisappear()
+}
+
 class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
     var currentMusic: MPMediaItem?
     private var animator: UIViewPropertyAnimator?
+    
+    weak var delgate: PlayerViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +39,11 @@ class PlayerViewController: SoundyViewController<PlayerView, PlayerViewModel> {
         guard let item = currentMusic else { return }
         let duration = item.playbackDuration - MusicPlayManager.shared.currentPlaybackTime
         animateProgress(interval: duration)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        delgate?.viewWillDisappear()
     }
     
     private func initView() {
