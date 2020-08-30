@@ -94,14 +94,12 @@ class MusicPlayManager: NSObject {
     }
     
     @objc func playbackStateDidChanged() {
-        print("playbackStateDidChanged ", player.playbackState.rawValue)
         guard let item = player.nowPlayingItem else { return }
         switch player.playbackState {
         case .interrupted: ()
         case .paused: delegate?.paused()
         case .stopped: ()
         case .playing:
-            print("playing")
             if let currentMusic = pausedMusic, currentMusic == item {
                 delegate?.resume(interval: item.playbackDuration - player.currentPlaybackTime)
             } else {
