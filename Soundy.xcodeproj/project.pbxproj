@@ -31,7 +31,6 @@
 		4EC06EB724F71A070003077C /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC06EB624F71A070003077C /* LibraryView.swift */; };
 		4EC06EB924F71FE80003077C /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EC06EB824F71FE80003077C /* ArtistTableViewCell.swift */; };
 		4EC06EBC24F720060003077C /* ArtistTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4EC06EBB24F720060003077C /* ArtistTableViewCell.xib */; };
-		4EEFE67124F7CC1000568C0D /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67024F7CC1000568C0D /* Array.swift */; };
 		4EEFE67424F85BDA00568C0D /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */; };
 		4EEFE67624F85F7A00568C0D /* SoundyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */; };
 		4EEFE67824F86B0700568C0D /* MusicPlayManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */; };
@@ -78,7 +77,6 @@
 		4EC06EB624F71A070003077C /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		4EC06EB824F71FE80003077C /* ArtistTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableViewCell.swift; sourceTree = "<group>"; };
 		4EC06EBB24F720060003077C /* ArtistTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ArtistTableViewCell.xib; sourceTree = "<group>"; };
-		4EEFE67024F7CC1000568C0D /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		4EEFE67324F85BDA00568C0D /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
 		4EEFE67524F85F7A00568C0D /* SoundyNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundyNavigationController.swift; sourceTree = "<group>"; };
 		4EEFE67724F86B0700568C0D /* MusicPlayManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayManager.swift; sourceTree = "<group>"; };
@@ -231,7 +229,6 @@
 		4EEFE66F24F7CC0300568C0D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				4EEFE67024F7CC1000568C0D /* Array.swift */,
 				4E7F129824FA0B9A001E2CCB /* UIImage.swift */,
 			);
 			path = Extension;
@@ -364,7 +361,6 @@
 			files = (
 				4EC06EB724F71A070003077C /* LibraryView.swift in Sources */,
 				4E06DCF424FA48D400A2446A /* PlayerViewModel.swift in Sources */,
-				4EEFE67124F7CC1000568C0D /* Array.swift in Sources */,
 				4E305ACC24F6710F0076C30F /* LibraryViewController.swift in Sources */,
 				4E305AC824F6710F0076C30F /* AppDelegate.swift in Sources */,
 				4EEFE67D24F884F400568C0D /* MiniPlayerView.swift in Sources */,
