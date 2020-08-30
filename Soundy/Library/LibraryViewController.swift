@@ -30,7 +30,7 @@ class LibraryViewController: SoundyViewController<LibraryView, LibraryViewModel>
 extension LibraryViewController {
     private func bindViewModel() {
         bindMediaLibraryAuthorized()
-        bindMediaItems()
+        bindCompletedRequestSongs()
         bindAlbum()
     }
     
@@ -38,7 +38,7 @@ extension LibraryViewController {
         viewModel.output.mediaLibraryAuthorized.bind { [weak self] authorized in
             guard let authorized = authorized else { return }
             if authorized {
-                self?.viewModel.input.getMediaItems()
+                self?.viewModel.input.requestSongs()
             }
             if !authorized {
                 self?.showSettingsAlert()
@@ -46,8 +46,9 @@ extension LibraryViewController {
         }
     }
     
-    private func bindMediaItems() {
-        viewModel.output.mediaItems.bind { [weak self] items in
+    private func bindCompletedRequestSongs() {
+        viewModel.output.completedRequestSongs.bind { [weak self] completed in
+            guard let completed = completed, completed else { return }
             self?.rootView.artistTableView.register(UINib(nibName: "ArtistTableViewCell", bundle: nil), forCellReuseIdentifier: "ArtistTableViewCell")
             self?.rootView.artistTableView.dataSource = self?.viewModel
             self?.rootView.artistTableView.delegate = self?.viewModel
